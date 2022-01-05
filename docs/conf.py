@@ -57,7 +57,7 @@ html_theme_options = {
     'github_type': 'star',
 
     'extra_nav_links': {
-        'GitHub repository': 'https://github.com/life4/flakeheaven',
+        'GitHub repository': 'https://github.com/flakeheaven/flakeheaven',
     },
 }
 
