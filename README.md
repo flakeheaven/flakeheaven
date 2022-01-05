@@ -2,7 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-It's a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
+FlakeHeaven is a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
+
+This project is a fork of [FlakeHell](https://github.com/life4/flakehell). FlakeHell and the official fork of it at
+[flakehell/flakehell](https://github.com/flakehell/flakehell) are no longer maintained and do not work with Flake8 4.0.x.
+
+FlakeHeaven works with Flake8 4.0.1 or greater.
 
 + [Lint md, rst, ipynb, and more](https://github.com/mcarans/flakeheaven/blob/master/docs/parsers.md).
 + [Shareable and remote configs](https://github.com/mcarans/flakeheaven/blob/master/docs/config.md#base).
