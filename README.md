@@ -1,9 +1,6 @@
-#FlakeHeaven
+# FlakeHeaven
 
-[![PyPI version](https://badge.fury.io/py/flakeheaven.svg)](https://badge.fury.io/py/flakeheaven)
-[![Build Status](https://cloud.drone.io/api/badges/life4/flakeheaven/status.svg)](https://cloud.drone.io/life4/flakeheaven)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Documentation](https://readthedocs.org/projects/flakeheaven/badge/?version=latest)](https://github.com/mcarans/flakeheaven/blob/master/docs/)
 
 It's a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
 
