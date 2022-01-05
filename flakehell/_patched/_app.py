@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 # external
 from flake8.main.application import Application
-from flake8.options.config import MergedConfigParser, get_local_plugins
+from flake8.options.config import ConfigParser, get_local_plugins
 from flake8.plugins.manager import ReportFormatters
 from flake8.utils import parse_unified_diff
 
@@ -111,12 +111,13 @@ class FlakeHellApplication(Application):
 
         # Parse CLI options and legacy flake8 configs.
         # Based on `aggregate_options`.
-        config_parser = MergedConfigParser(
+        config_parser = ConfigParser(
             option_manager=self.option_manager,
             config_finder=config_finder,
         )
         parsed_config = config_parser.parse()
         config.extended_default_select = self.option_manager.extended_default_select.copy()
+        config.extended_default_ignore = self.option_manager.extended_default_ignore.copy()
         for config_name, value in parsed_config.items():
             dest_name = config_name
             # If the config name is somehow different from the destination name,

@@ -1,6 +1,7 @@
 # built-in
 import ast
 import re
+from functools import partial
 from importlib import import_module
 from pathlib import Path
 from typing import Dict, List
@@ -220,10 +221,13 @@ def extract_flake8_pytest_style() -> Dict[str, str]:
 
 
 def extract_flake8_annotations_complexity() -> Dict[str, str]:
-    from flake8_annotations_complexity.checker import AnnotationsComplexityChecker
-
-    code, message = AnnotationsComplexityChecker._error_message_template.split(' ', maxsplit=1)
-    return {code: message}
+    _error_message_templates = ['TAE002 too complex annotation ({0} > {1})',
+                                'TAE003 too long annotation ({0} > {1})']
+    codes = dict()
+    for _error_message_template in _error_message_templates:
+        code, message = _error_message_template.split(' ', maxsplit=1)
+        codes[code] = message
+    return codes
 
 
 def extract_flake8_future_import() -> Dict[str, str]:
@@ -400,4 +404,24 @@ def extract_wemake_python_styleguide() -> Dict[str, str]:
                 continue
             code = 'WPS' + str(checker.code).zfill(3)
             codes[code] = checker.error_template
+    return codes
+
+
+def extract_flake8_pie() -> Dict[str, str]:
+    import flake8_pie
+    from inspect import getsource
+
+    codes = dict()
+    for path in Path(flake8_pie.__path__[0]).iterdir():
+        module = import_module('flake8_pie.' + path.stem)
+        for code in dir(module):
+            if not code.startswith('PIE'):
+                continue
+            error = getattr(module, code)
+            if isinstance(error, partial):
+                code_message = error.keywords['message']
+            else:
+                fn_source = getsource(error)
+                code_message = fn_source.split('message=')[1].strip('\n (),\'"')
+            codes[code] = code_message.split(': ', maxsplit=1)[1]
     return codes

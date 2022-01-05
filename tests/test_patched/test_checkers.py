@@ -48,4 +48,4 @@ def test_catches_exception_on_invalid_syntax(tmp_path):
     fchecker.run_checks()
     assert len(fchecker.results) == 1
     assert fchecker.results[0].error_code == 'E999'
-    assert fchecker.results[0].text == 'SyntaxError: invalid syntax'
+    assert fchecker.results[0].text == 'SyntaxError: invalid syntax. Perhaps you forgot a comma?'
