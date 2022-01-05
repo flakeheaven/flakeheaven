@@ -90,7 +90,7 @@ classifiers=[
 ]
 
 [tool.flit.metadata.urls]
-Documentation = "https://github.com/mcarans/flakeheaven/blob/master/docs/"
+Documentation = "https://github.com/flakeheaven/flakeheaven/blob/master/docs/"
 
 [tool.flit.scripts]
 flakeheaven = "flakeheaven:entrypoint"
