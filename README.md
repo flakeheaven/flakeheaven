@@ -98,7 +98,7 @@ flakeheaven lint
 
 This command accepts all the same arguments as Flake8.
 
-Read [github.com/mcarans/flakeheaven/blob/master/docs](https://github.com/flakeheaven/flakeheaven/blob/master/docs/) for more information.
+Read [github.com/flakeheaven/flakeheaven/blob/master/docs](https://github.com/flakeheaven/flakeheaven/blob/master/docs/) for more information.
 
 ## Contributing
 
