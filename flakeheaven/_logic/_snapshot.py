@@ -11,7 +11,7 @@ from flake8.checker import FileChecker
 from flake8.options.manager import OptionManager
 
 
-CACHE_PATH = Path(os.environ.get('FLAKEHELL_CACHE', Path.home() / '.cache' / 'flakeheaven'))
+CACHE_PATH = Path(os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache' / 'flakeheaven'))
 THRESHOLD = 3600 * 24  # 1 day
 
 
