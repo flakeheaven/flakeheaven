@@ -67,7 +67,7 @@ requires-python=">=3.5"
 requires=[
     "colorama",
     "entrypoints",
-    "flake8>=3.8.0",
+    "flake8>=4.0.1",
     "pygments",
     "toml",
     "urllib3",
