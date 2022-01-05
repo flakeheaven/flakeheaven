@@ -1,7 +1,7 @@
 # app
 from .._constants import NAME, VERSION, ExitCode
 from .._logic import get_installed, get_plugin_rules
-from .._patched import FlakeHellApplication
+from .._patched import FlakeHeavenApplication
 from .._types import CommandResult
 
 
@@ -14,7 +14,7 @@ def missed_command(argv) -> CommandResult:
     if argv:
         return ExitCode.TOO_MANY_ARGS, 'the command does not accept arguments'
 
-    app = FlakeHellApplication(program=NAME, version=VERSION)
+    app = FlakeHeavenApplication(program=NAME, version=VERSION)
     installed_plugins = sorted(get_installed(app=app), key=lambda p: p['name'])
     if not installed_plugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'

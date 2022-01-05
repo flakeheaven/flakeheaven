@@ -3,7 +3,7 @@
 Run patched flake8 against the code.
 
 ```bash
-flakehell lint
+flakeheaven lint
 ```
 
 This command accepts all the same arguments as Flake8.
@@ -11,19 +11,19 @@ This command accepts all the same arguments as Flake8.
 Run linter against a file:
 
 ```bash
-flakehell lint example.py
+flakeheaven lint example.py
 ```
 
 Run linter against a few dirs:
 
 ```bash
-flakehell lint ./flakehell/ ./tests/
+flakeheaven lint ./flakeheaven/ ./tests/
 ```
 
 Show available arguments:
 
 ```bash
-flakehell lint --help
+flakeheaven lint --help
 ```
 
 Read [flake8 documentation](http://flake8.pycqa.org/en/latest/user/options.html) for list of available options.

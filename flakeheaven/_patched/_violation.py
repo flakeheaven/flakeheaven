@@ -22,7 +22,7 @@ _Violation = namedtuple(
 )
 
 
-class FlakeHellViolation(_Violation):
+class FlakeHeavenViolation(_Violation):
     """Patched flake8.style_guide.Violation
 
     We can't just inherit because Violation is a namedtuple,

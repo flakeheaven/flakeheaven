@@ -2,7 +2,7 @@
 from pathlib import Path
 
 # project
-from flakehell._logic import get_exceptions
+from flakeheaven._logic import get_exceptions
 
 
 def test_get_exceptions(tmp_path: Path):

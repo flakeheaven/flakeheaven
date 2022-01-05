@@ -1,14 +1,14 @@
 # app
 from .._constants import NAME, VERSION, ExitCode
 from .._logic import colored, get_installed, get_plugin_rules
-from .._patched import FlakeHellApplication
+from .._patched import FlakeHeavenApplication
 from .._types import CommandResult
 
 
 def plugins_command(argv) -> CommandResult:
     """Show all installed plugins, their codes prefix, and matched rules from config.
     """
-    app = FlakeHellApplication(program=NAME, version=VERSION)
+    app = FlakeHeavenApplication(program=NAME, version=VERSION)
     plugins = sorted(get_installed(app=app), key=lambda p: p['name'])
     if not plugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'

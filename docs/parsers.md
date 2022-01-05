@@ -1,6 +1,6 @@
 # Parsers
 
-FlakeHell lints not only `*.py` files but also a number of additional formats:
+FlakeHeaven lints not only `*.py` files but also a number of additional formats:
 
 + [Markdown](https://en.wikipedia.org/wiki/Markdown) (`*.md`).
 + [ReStructuredText](https://en.wikipedia.org/wiki/ReStructuredText) (`*.rst`).
@@ -22,9 +22,9 @@ The reason is that all code blocks are validated in-place, with commenting out e
 
 ## Performance
 
-If you have performance issues because FlakeHell parses more files than needed, tune [ignore](https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore) to exclude specific files or directories, or [filename](https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-filename) to exclude extensions.
+If you have performance issues because FlakeHeaven parses more files than needed, tune [ignore](https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore) to exclude specific files or directories, or [filename](https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-filename) to exclude extensions.
 
-However, keep in mind that FlakeHell has a few hacks to be as fast as possible:
+However, keep in mind that FlakeHeaven has a few hacks to be as fast as possible:
 
 1. It caches results. Cache invalidates after 24 hours or if the configuration was changed.
 1. It doesn't run plugins against files without code blocks. Or against empty `*.py` files.

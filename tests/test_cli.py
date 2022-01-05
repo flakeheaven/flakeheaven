@@ -11,7 +11,7 @@ import pytest
 from flake8.utils import parse_unified_diff, stdin_get_value
 
 # project
-from flakehell._cli import main
+from flakeheaven._cli import main
 
 # app
 from .utils import chdir
@@ -22,7 +22,7 @@ def test_flake8helled_file():
     cmd = [
         sys.executable,
         '-c',
-        'import sys; from flakehell import flake8_entrypoint; sys.exit(flake8_entrypoint())',
+        'import sys; from flakeheaven import flake8_entrypoint; sys.exit(flake8_entrypoint())',
         __file__,
     ]
     result = subprocess.run(cmd)
@@ -35,7 +35,7 @@ def test_flake8helled_stdin():
     cmd = [
         sys.executable,
         '-c',
-        'import sys; from flakehell import flake8_entrypoint; sys.exit(flake8_entrypoint())',
+        'import sys; from flakeheaven import flake8_entrypoint; sys.exit(flake8_entrypoint())',
         '--stdin-display-name',
         __file__,
         # '-' is not an existing filename, so snapshot cannot create a hexdigest of its content
@@ -66,11 +66,11 @@ def test_version(capsys):
     assert result == (0, '')
     captured = capsys.readouterr()
     assert captured.err == ''
-    assert 'FlakeHell' in captured.out
+    assert 'FlakeHeaven' in captured.out
     assert 'Flake8' in captured.out
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 def test_lint_help(capsys):
     result = main(['lint', '--help'])
     assert result == (0, '')
@@ -86,17 +86,17 @@ def test_lint_help(capsys):
     assert '--per-file-ignores' not in captured.out
     assert '--enable-extensions' not in captured.out
 
-    # flakehell options
+    # flakeheaven options
     assert '--baseline' in captured.out
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 def test_exceptions(capsys, tmp_path: Path):
     text = """
-    [tool.flakehell.plugins]
+    [tool.flakeheaven.plugins]
     pyflakes = ["+*"]
 
-    [tool.flakehell.exceptions."tests/"]
+    [tool.flakeheaven.exceptions."tests/"]
     pyflakes = ["-F401"]
     """
     (tmp_path / 'pyproject.toml').write_text(dedent(text))
@@ -116,14 +116,14 @@ def test_exceptions(capsys, tmp_path: Path):
     assert captured.out.strip() == dedent(exp).strip()
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 @patch('sys.stdin', Mock())
 def test_diff(capsys, tmp_path: Path):
     text = """
-    [tool.flakehell.plugins]
+    [tool.flakeheaven.plugins]
     pyflakes = ["+*"]
 
-    [tool.flakehell.exceptions."tests/"]
+    [tool.flakeheaven.exceptions."tests/"]
     pyflakes = ["-F401"]
     """
     (tmp_path / 'pyproject.toml').write_text(dedent(text))
@@ -134,14 +134,14 @@ def test_diff(capsys, tmp_path: Path):
     diff = """
         --- a/tests/test_example.py
         +++ b/tests/test_example.py
-        @@ -1,1 +1,2 @@ class FlakeHellCheckersManager(Manager):
+        @@ -1,1 +1,2 @@ class FlakeHeavenCheckersManager(Manager):
         - .
         + import sys
         + a
 
         --- a/example.py
         +++ b/example.py
-        @@ -1,1 +1,2 @@ class FlakeHellCheckersManager(Manager):
+        @@ -1,1 +1,2 @@ class FlakeHeavenCheckersManager(Manager):
         - .
         + import sys
         + a
@@ -165,16 +165,16 @@ def test_diff(capsys, tmp_path: Path):
     assert captured.out.strip() == dedent(exp).strip()
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 @patch('sys.stdin.buffer', BytesIO(b'import sys\na\n'))
 @patch('sys.stdin', Mock())
 def test_exceptions_stdin(capsys, tmp_path: Path):
     # write config
     text = """
-    [tool.flakehell.plugins]
+    [tool.flakeheaven.plugins]
     pyflakes = ["+*"]
 
-    [tool.flakehell.exceptions."example.py"]
+    [tool.flakeheaven.exceptions."example.py"]
     pyflakes = ["-F401"]
     """
     (tmp_path / 'pyproject.toml').write_text(dedent(text))
@@ -196,7 +196,7 @@ def test_exceptions_stdin(capsys, tmp_path: Path):
     assert captured.out.strip() == "example.py:2:1: F821 undefined name 'a'"
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 def test_baseline(capsys, tmp_path: Path):
     code_path = tmp_path / 'example.py'
     code_path.write_text('a\nb\n')
@@ -223,7 +223,7 @@ def test_baseline(capsys, tmp_path: Path):
     assert captured.out.strip() == "{}:2:1: F821 undefined name 'b'".format(str(code_path))
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 def test_ignore_file_by_top_level_noqa(capsys, tmp_path: Path):
     (tmp_path / 'example1.py').write_text('import sys\n')
     (tmp_path / 'example2.py').write_text('# flake8: noqa\nimport sys\n')
@@ -236,7 +236,7 @@ def test_ignore_file_by_top_level_noqa(capsys, tmp_path: Path):
     assert captured.out.strip() == exp
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 def test_exclude_file(capsys, tmp_path: Path):
     (tmp_path / 'checked.py').write_text('import sys\n')
     (tmp_path / 'ignored').mkdir()

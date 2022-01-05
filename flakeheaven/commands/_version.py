@@ -5,13 +5,13 @@ from flake8 import __version__ as flake8_version
 from .._constants import ExitCode
 from .._logic import colored
 from .._types import CommandResult
-from .._version import __version__ as flakehell_version
+from .._version import __version__ as flakeheaven_version
 
 
 def version_command(argv) -> CommandResult:
-    """Show FlakeHell version.
+    """Show FlakeHeaven version.
     """
-    print('FlakeHell', colored(flakehell_version, 'green'))
+    print('FlakeHeaven', colored(flakeheaven_version, 'green'))
     print('Flake8   ', colored(flake8_version, 'green'))
-    print('For plugins versions use', colored('flakehell plugins', 'green'))
+    print('For plugins versions use', colored('flakeheaven plugins', 'green'))
     return ExitCode.OK, ''

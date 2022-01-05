@@ -12,7 +12,7 @@ from .._logic import (
     Snapshot, check_include, get_exceptions, get_plugin_name,
     get_plugin_rules, make_baseline, prepare_cache,
 )
-from ._processor import FlakeHellProcessor
+from ._processor import FlakeHeavenProcessor
 
 
 DEFAULT_PLUGIN = 'pycodestyle'
@@ -27,7 +27,7 @@ class Result(NamedTuple):
     line: str
 
 
-class FlakeHellCheckersManager(Manager):
+class FlakeHeavenCheckersManager(Manager):
     """
     Patched flake8.checker.Manager to provide `plugins` support
     """
@@ -82,7 +82,7 @@ class FlakeHellCheckersManager(Manager):
                 # Create checker with selected checks
                 if not has_checks:
                     continue
-                checker = FlakeHellFileChecker(
+                checker = FlakeHeavenFileChecker(
                     filename=filename,
                     checks=selected_checks,
                     options=self.options,
@@ -140,12 +140,12 @@ class FlakeHellCheckersManager(Manager):
         """Patched `is_path_excluded`.
 
         We patch it to exclude files not specified explicitly.
-        It is helpful when you want to run flakehell with `--diff`
+        It is helpful when you want to run flakeheaven with `--diff`
         and explicitly passed paths at the same time.
 
-        Run flakehell only on changes in example.py:
+        Run flakeheaven only on changes in example.py:
 
-            git diff | flakehell lint --diff example.py
+            git diff | flakeheaven lint --diff example.py
         """
         if filename == '-':
             filename = self.options.stdin_display_name
@@ -258,16 +258,16 @@ class FlakeHellCheckersManager(Manager):
         return reported_results_count
 
 
-class FlakeHellFileChecker(FileChecker):
+class FlakeHeavenFileChecker(FileChecker):
     """
     A little bit patched FileChecker to support `--safe`
     """
     snapshot: Snapshot
     _processed_plugin: str = DEFAULT_PLUGIN
 
-    def _make_processor(self) -> Optional[FlakeHellProcessor]:
+    def _make_processor(self) -> Optional[FlakeHeavenProcessor]:
         try:
-            return FlakeHellProcessor(self.filename, self.options)
+            return FlakeHeavenProcessor(self.filename, self.options)
         except IOError as e:
             message = '{0}: {1}'.format(type(e).__name__, e)
             self.report('E902', 0, 0, message)

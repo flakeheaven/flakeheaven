@@ -26,7 +26,7 @@ templates_path = ['_templates']
 source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
-project = 'FlakeHell'
+project = 'FlakeHeaven'
 copyright = '{}, Gram (@orsinium)'.format(date.today().year)
 author = 'Gram (@orsinium)'
 
@@ -53,18 +53,18 @@ html_theme_options = {
     # 'color': '#2c3e50',
     'github_banner': 'true',
     'github_user': 'life4',
-    'github_repo': 'flakehell',
+    'github_repo': 'flakeheaven',
     'github_type': 'star',
 
     'extra_nav_links': {
-        'GitHub repository': 'https://github.com/life4/flakehell',
+        'GitHub repository': 'https://github.com/life4/flakeheaven',
     },
 }
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'flakehelldoc'
+htmlhelp_basename = 'flakeheavendoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -73,7 +73,7 @@ htmlhelp_basename = 'flakehelldoc'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'flakehell.tex', 'FlakeHell Documentation',
+    (master_doc, 'flakeheaven.tex', 'FlakeHeaven Documentation',
      '@orsinium', 'manual'),
 ]
 
@@ -82,7 +82,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, 'flakehell', 'FlakeHell Documentation', [author], 1)]
+man_pages = [(master_doc, 'flakeheaven', 'FlakeHeaven Documentation', [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -91,8 +91,8 @@ man_pages = [(master_doc, 'flakehell', 'FlakeHell Documentation', [author], 1)]
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'flakehell', 'FlakeHell Documentation',
-     author, 'FlakeHell', 'One line description of project.', 'Miscellaneous'),
+    (master_doc, 'flakeheaven', 'FlakeHeaven Documentation',
+     author, 'FlakeHeaven', 'One line description of project.', 'Miscellaneous'),
 ]
 
 

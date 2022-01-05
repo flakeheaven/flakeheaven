@@ -5,9 +5,9 @@ from unittest.mock import patch
 import pytest
 
 # project
-from flakehell._constants import KNOWN_PLUGINS
-from flakehell._logic import _extractors, extract, get_installed
-from flakehell._patched import FlakeHellApplication
+from flakeheaven._constants import KNOWN_PLUGINS
+from flakeheaven._logic import _extractors, extract, get_installed
+from flakeheaven._patched import FlakeHeavenApplication
 
 
 @pytest.mark.parametrize('plugin_name', KNOWN_PLUGINS)
@@ -24,10 +24,10 @@ def test_smoke_extract(plugin_name):
         assert code[0].isupper(), 'code must be uppercase'
 
 
-@patch('sys.argv', ['flakehell'])
+@patch('sys.argv', ['flakeheaven'])
 @pytest.mark.parametrize('plugin_name', KNOWN_PLUGINS)
 def test_smoke_prefixes(plugin_name):
-    app = FlakeHellApplication(program='test', version='1.0.0')
+    app = FlakeHeavenApplication(program='test', version='1.0.0')
     plugins = {plugin['name']: plugin for plugin in get_installed(app=app)}
     plugin = plugins[plugin_name]
 

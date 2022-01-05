@@ -9,7 +9,7 @@ from flake8.processor import FileProcessor
 from ..parsers import PARSERS, BaseParser, PythonParser
 
 
-class FlakeHellProcessor(FileProcessor):
+class FlakeHeavenProcessor(FileProcessor):
     parser: Type[BaseParser] = PythonParser
 
     def read_lines_from_filename(self) -> List[str]:

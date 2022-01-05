@@ -1,7 +1,7 @@
 # app
 from .._constants import NAME, VERSION, ExitCode
 from .._logic import color_description, colored, extract, get_installed
-from .._patched import FlakeHellApplication
+from .._patched import FlakeHeavenApplication
 from .._types import CommandResult
 
 
@@ -17,7 +17,7 @@ def code_command(argv) -> CommandResult:
         return ExitCode.TOO_MANY_ARGS, 'the command accept only one argument'
     code = argv[0]
 
-    app = FlakeHellApplication(program=NAME, version=VERSION)
+    app = FlakeHeavenApplication(program=NAME, version=VERSION)
     plugins = sorted(get_installed(app=app), key=lambda p: p['name'])
     if not plugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'

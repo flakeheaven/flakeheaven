@@ -2,7 +2,7 @@
 from unittest import mock
 
 # project
-from flakehell._patched._checkers import FlakeHellFileChecker
+from flakeheaven._patched._checkers import FlakeHeavenFileChecker
 
 
 def test_nonexistent_file():
@@ -10,10 +10,10 @@ def test_nonexistent_file():
     plugin = {
         'plugin_name': 'flake8-example',
         'name': 'something',
-        'plugin': FlakeHellFileChecker,
+        'plugin': FlakeHeavenFileChecker,
     }
     checks = dict(ast_plugins=[plugin], logical_line_plugins=[], physical_line_plugins=[])
-    c = FlakeHellFileChecker(
+    c = FlakeHeavenFileChecker(
         filename='foobar.py',
         checks=checks,
         options=None,
@@ -38,7 +38,7 @@ def test_catches_exception_on_invalid_syntax(tmp_path):
     options = mock.MagicMock()
     options.safe = False
     checks = dict(ast_plugins=[plugin], logical_line_plugins=[], physical_line_plugins=[])
-    fchecker = FlakeHellFileChecker(
+    fchecker = FlakeHeavenFileChecker(
         filename=str(code_path),
         checks=checks,
         options=options,

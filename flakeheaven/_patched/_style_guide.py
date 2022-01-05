@@ -5,17 +5,17 @@ from functools import lru_cache
 from flake8.style_guide import StyleGuide, StyleGuideManager
 
 # app
-from ._violation import FlakeHellViolation
+from ._violation import FlakeHeavenViolation
 
 
-class FlakeHellStyleGuideManager(StyleGuideManager):
+class FlakeHeavenStyleGuideManager(StyleGuideManager):
     def __init__(self, options, formatter, decider=None):
         """Initialize our StyleGuide.
 
         .. todo:: Add parameter documentation.
         """
         super().__init__(options, formatter, decider)
-        self.default_style_guide = FlakeHellStyleGuide(
+        self.default_style_guide = FlakeHeavenStyleGuide(
             options, formatter, self.stats, decider=decider,
         )
         self.style_guides = [self.default_style_guide]
@@ -23,7 +23,7 @@ class FlakeHellStyleGuideManager(StyleGuideManager):
 
     @lru_cache(maxsize=None)
     def style_guide_for(self, filename: str):
-        """Patched styleguide finder to give priority to flakehell's stileguides
+        """Patched styleguide finder to give priority to flakeheaven's stileguides
         """
         guides = sorted(
             (g for g in self.style_guides if g.applies_to(filename)),
@@ -31,7 +31,7 @@ class FlakeHellStyleGuideManager(StyleGuideManager):
             reverse=True,
         )
         for guide in guides:
-            if isinstance(guide, FlakeHellStyleGuide):
+            if isinstance(guide, FlakeHeavenStyleGuide):
                 return guide
         return guides[0]
 
@@ -54,12 +54,12 @@ class FlakeHellStyleGuideManager(StyleGuideManager):
             text=text,
             physical_line=physical_line,
         )
-        if isinstance(guide, FlakeHellStyleGuide):
+        if isinstance(guide, FlakeHeavenStyleGuide):
             params['plugin'] = plugin
         return guide.handle_error(**params)
 
 
-class FlakeHellStyleGuide(StyleGuide):
+class FlakeHeavenStyleGuide(StyleGuide):
     def handle_error(
         self,
         code: str,
@@ -72,13 +72,13 @@ class FlakeHellStyleGuide(StyleGuide):
     ):
         """
         This function copied as is, but:
-        1. Violation is replaced by FlakeHellViolation
+        1. Violation is replaced by FlakeHeavenViolation
         2. `error_is_selected` dropped. If we get here, the error IS selected.
         """
         disable_noqa = self.options.disable_noqa
         if not column_number:
             column_number = 0
-        error = FlakeHellViolation(
+        error = FlakeHeavenViolation(
             code=code,
             filename=filename,
             line_number=line_number,

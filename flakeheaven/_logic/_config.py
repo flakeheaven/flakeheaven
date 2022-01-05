@@ -48,7 +48,7 @@ def _merge_configs(*configs) -> Dict[str, Any]:
 
 
 def _parse_config(content: str) -> Dict[str, Any]:
-    config = toml.loads(content).get('tool', {}).get('flakehell', {})
+    config = toml.loads(content).get('tool', {}).get('flakeheaven', {})
     config = dict(config)
 
     for section in ('plugins', 'exceptions'):

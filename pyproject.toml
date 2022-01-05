@@ -1,9 +1,9 @@
-[tool.flakehell]
+[tool.flakeheaven]
 exclude = ["example.py", "setup.py", "README.rst"]
 max_line_length = 120
 show_source = true
 
-[tool.flakehell.plugins]
+[tool.flakeheaven.plugins]
 pycodestyle = ["+*"]
 pyflakes = ["+*"]
 flake8-commas = ["+*"]
@@ -17,7 +17,7 @@ from = {format = "flit", path = "pyproject.toml"}
 to = {format = "setuppy", path = "setup.py"}
 envs = ["main", "dev"]
 tag = "v."
-command = "python -m flakehell lint"
+command = "python -m flakeheaven lint"
 
 [tool.dephell.pytest]
 from = {format = "flit", path = "pyproject.toml"}
@@ -38,7 +38,7 @@ command = "isort -rc -y"
 [tool.dephell.typing]
 from = {format = "flit", path = "pyproject.toml"}
 envs = ["main"]
-command = "mypy --ignore-missing-imports --allow-redefinition flakehell/"
+command = "mypy --ignore-missing-imports --allow-redefinition flakeheaven/"
 
 # -- ISORT -- #
 
@@ -59,10 +59,10 @@ import_heading_localfolder = "app"
 # -- FLIT -- #
 
 [tool.flit.metadata]
-module="flakehell"
+module="flakeheaven"
 author="Gram (@orsinium)"
 author-email="master_fess@mail.ru"
-home-page="https://github.com/life4/flakehell"
+home-page="https://github.com/flakeheaven/flakeheaven"
 requires-python=">=3.5"
 requires=[
     "colorama",
@@ -90,22 +90,22 @@ classifiers=[
 ]
 
 [tool.flit.metadata.urls]
-Documentation = "https://flakehell.readthedocs.io/"
+Documentation = "https://github.com/mcarans/flakeheaven/blob/master/docs/"
 
 [tool.flit.scripts]
-flakehell = "flakehell:entrypoint"
-flake8helled = "flakehell:flake8_entrypoint"
+flakeheaven = "flakeheaven:entrypoint"
+flake8helled = "flakeheaven:flake8_entrypoint"
 
 [tool.flit.entrypoints."flake8.extension"]
-pylint = "flakehell.plugins:PyLintChecker"
+pylint = "flakeheaven.plugins:PyLintChecker"
 
 [tool.flit.entrypoints."flake8.report"]
-baseline = "flakehell.formatters:BaseLineFormatter"
-colored = "flakehell.formatters:ColoredFormatter"
-gitlab = "flakehell.formatters:GitlabFormatter"
-grouped = "flakehell.formatters:GroupedFormatter"
-json = "flakehell.formatters:JSONFormatter"
-stat = "flakehell.formatters:StatFormatter"
+baseline = "flakeheaven.formatters:BaseLineFormatter"
+colored = "flakeheaven.formatters:ColoredFormatter"
+gitlab = "flakeheaven.formatters:GitlabFormatter"
+grouped = "flakeheaven.formatters:GroupedFormatter"
+json = "flakeheaven.formatters:JSONFormatter"
+stat = "flakeheaven.formatters:StatFormatter"
 
 [tool.flit.metadata.requires-extra]
 docs = [

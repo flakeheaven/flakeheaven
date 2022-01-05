@@ -38,7 +38,7 @@ class MultiDict:
                 yield value
 
 
-class FlakeHellPluginManager(PluginManager):
+class FlakeHeavenPluginManager(PluginManager):
     def __init__(self, namespace, local_plugins=None):
         self.namespace = namespace
         self.plugins = MultiDict()
@@ -60,9 +60,9 @@ class FlakeHellPluginManager(PluginManager):
             yield (plugin_name, plugin.version)
 
 
-class FlakeHellCheckers(Checkers):
+class FlakeHeavenCheckers(Checkers):
     def __init__(self, local_plugins=None):
-        self.manager = FlakeHellPluginManager(
+        self.manager = FlakeHeavenPluginManager(
             namespace=self.namespace,
             local_plugins=local_plugins,
         )

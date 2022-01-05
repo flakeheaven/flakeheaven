@@ -14,7 +14,7 @@ Also, you can specify `show_source = true` in the config to show line of source 
 ## Colored
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "colored"
 ```
 
@@ -23,7 +23,7 @@ format = "colored"
 ## Colored with source code
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "colored"
 show_source = true
 ```
@@ -33,7 +33,7 @@ show_source = true
 ## Grouped
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "grouped"
 ```
 
@@ -42,7 +42,7 @@ format = "grouped"
 ## Grouped with source code
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "grouped"
 show_source = true
 ```
@@ -52,7 +52,7 @@ show_source = true
 ## Stat
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "stat"
 ```
 
@@ -61,7 +61,7 @@ format = "stat"
 ## JSON
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "json"
 ```
 
@@ -72,19 +72,19 @@ format = "json"
 Output [Code Quality](https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html) artifact compatible with Gitlab CI.
 
 ```toml
-[tool.flakehell]
+[tool.flakeheaven]
 format = "gitlab"
 ```
 
 An example of Gitlab CI job (`.gitlab-ci.yml`):
 
 ```yaml
-flakehell:
+flakeheaven:
   image: python:3.7
   script:
-    - pip3 install flakehell
-    - flakehell lint --format=gitlab --output-file flakehell.json
+    - pip3 install flakeheaven
+    - flakeheaven lint --format=gitlab --output-file flakeheaven.json
   artifacts:
     reports:
-      codequality: flakehell.json
+      codequality: flakeheaven.json
 ```

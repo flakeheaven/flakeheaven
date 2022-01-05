@@ -6,7 +6,7 @@ from types import MappingProxyType
 from ._version import __version__
 
 
-NAME = 'flakehell'
+NAME = 'flakeheaven'
 VERSION = __version__
 
 
@@ -17,7 +17,7 @@ DEFAULTS = dict(
     format='colored',
     max_line_length=90,
 
-    # flakehell options
+    # flakeheaven options
     baseline=None,
     safe=False,
     plugins={
@@ -26,7 +26,7 @@ DEFAULTS = dict(
     },
     exceptions={},
 
-    # disabled by flakehell but required by flake8
+    # disabled by flakeheaven but required by flake8
     extend_exclude=[],
     ignore=[],
     extend_ignore=[],

@@ -3,7 +3,7 @@ import ast
 from pathlib import Path
 
 # project
-from flakehell.parsers import JupyterParser
+from flakeheaven.parsers import JupyterParser
 
 
 GIVEN = r"""

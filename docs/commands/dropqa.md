@@ -7,7 +7,7 @@ The command is inspired by [yesqa](https://github.com/asottile/yesqa) tool and d
 + Removes unused codes from `noQA`.
 + Removes bare `noQA` that says "ignore everything on this line" and is a bad practice.
 
-Of course, it is fully integrated with FlakeHell and will take into account all rules from the config.
+Of course, it is fully integrated with FlakeHeaven and will take into account all rules from the config.
 
 ```python
 # before
@@ -20,5 +20,5 @@ err=1  # noqa: E225
 Usage is simple: just provide paths you want to fix:
 
 ```bash
-flakehell yesqa ./example.py ./flakehell/
+flakeheaven yesqa ./example.py ./flakeheaven/
 ```

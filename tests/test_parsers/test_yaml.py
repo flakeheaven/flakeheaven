@@ -3,7 +3,7 @@ import ast
 from pathlib import Path
 
 # project
-from flakehell.parsers import YAMLParser
+from flakeheaven.parsers import YAMLParser
 
 
 GIVEN = """

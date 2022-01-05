@@ -33,7 +33,7 @@ def main(argv: List[str] = None) -> CommandResult:
 
 
 def entrypoint(argv: List[str] = None) -> NoReturn:
-    """Default entrypoint for CLI (flakehell).
+    """Default entrypoint for CLI (flakeheaven).
     """
     if argv is None:
         argv = sys.argv[1:]
