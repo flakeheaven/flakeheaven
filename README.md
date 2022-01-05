@@ -4,10 +4,10 @@
 
 FlakeHeaven is a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
 
-This project is a fork of [FlakeHell](https://github.com/life4/flakehell). FlakeHell and the official fork of it at
-[flakehell/flakehell](https://github.com/flakehell/flakehell) are no longer maintained and do not work with Flake8 4.0.x.
+This project is a fork of [FlakeHell](https://github.com/life4/flakehell). FlakeHell and other forks of it such as
+[flakehell/flakehell](https://github.com/flakehell/flakehell/issues/25) are no longer maintained and do not work with Flake8 4.0.x.
 
-FlakeHeaven works with Flake8 4.0.1 or greater.
+FlakeHeaven works with Flake8 4.0.1 or greater. This fork will be [maintained by the community](https://github.com/flakeheaven/flakeheaven/discussions/1) that developed the existing forks.
 
 + [Lint md, rst, ipynb, and more](https://github.com/flakeheaven/flakeheaven/blob/master/docs/parsers.md).
 + [Shareable and remote configs](https://github.com/flakeheaven/flakeheaven/blob/master/docs/config.md#base).
