@@ -44,7 +44,7 @@ def entrypoint(argv: List[str] = None) -> NoReturn:
 
 
 def flake8_entrypoint(argv: List[str] = None) -> NoReturn:
-    """Entrypoint with the same behavior as flake8 (flake8helled)
+    """Entrypoint with the same behavior as flake8 (flake8heavened)
     """
     if argv is None:
         argv = sys.argv[1:]

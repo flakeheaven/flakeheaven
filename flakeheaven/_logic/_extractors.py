@@ -11,6 +11,7 @@ REX_CODE = re.compile(r'^[A-Z]{1,5}[0-9]{1,5}$')
 ALIASES = {
     'flake8_bugbear': 'bugbear',
     'flake8_logging_format': 'logging_format',
+    'flake8_pylint_plugin': 'pylint',
 }
 
 
