@@ -110,9 +110,9 @@ KNOWN_PLUGINS = MappingProxyType({
     # PyCQA
     'flake8-bugbear': 'https://github.com/PyCQA/flake8-bugbear',
     'flake8-commas': 'https://github.com/PyCQA/flake8-commas',
+    'flake8-pylint-plugin': 'https://github.com/PyCQA/pylint',
     'mccabe': 'https://github.com/PyCQA/mccabe',
     'pep8-naming': 'https://github.com/PyCQA/pep8-naming',
-    'pylint': 'https://github.com/PyCQA/pylint',
 
     # imports
     'flake8-future-import': 'https://github.com/xZise/flake8-future-import',

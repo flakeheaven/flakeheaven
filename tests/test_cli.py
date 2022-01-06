@@ -17,7 +17,7 @@ from flakeheaven._cli import main
 from .utils import chdir
 
 
-def test_flake8helled_file():
+def test_flake8heavened_file():
     """Baseline behavior, when an actual filename is passed."""
     cmd = [
         sys.executable,
@@ -29,7 +29,7 @@ def test_flake8helled_file():
     assert result.returncode == 0
 
 
-def test_flake8helled_stdin():
+def test_flake8heavened_stdin():
     """Problematic behavior from issue #44, `-` is passed as filename, together with --stdin-display-name."""
     source_file = open(__file__, 'r')
     cmd = [
@@ -68,6 +68,15 @@ def test_version(capsys):
     assert captured.err == ''
     assert 'FlakeHeaven' in captured.out
     assert 'Flake8' in captured.out
+
+
+def test_plugins(capsys):
+    result = main(['plugins'])
+    assert result == (0, '')
+    captured = capsys.readouterr()
+    assert captured.err == ''
+    assert 'NAME' in captured.out
+    assert 'RULES' in captured.out
 
 
 @patch('sys.argv', ['flakeheaven'])
