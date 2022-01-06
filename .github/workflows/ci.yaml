@@ -1,0 +1,47 @@
+#.github/workflows/ci.yaml
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  default:
+    name: "${{ matrix.step.env }} '${{ matrix.step.command }}' @ py${{ matrix.step.python }})"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        step: [
+          # original from drone CI startlark file
+          # {env: "pytest", python: "3.6", extras: "main,dev", command: "pytest tests/"},  # disable or drop support?
+          {env: "pytest", python: "3.7", extras: "main,dev", command: "pytest tests/"},
+          {env: "pytest", python: "3.8", extras: "main,dev", command: "pytest tests/"},
+          {env: "pytest", python: "3.9", extras: "main,dev", command: "pytest tests/"},
+          {env: "main", python: "3.8", extras: "main,dev", command: "flakeheaven lint"},
+          {env: "typing", python: "3.8", extras: "main,dev", command: "mypy --ignore-missing-imports --allow-redefinition flakeheaven/"},
+          # additional
+          {env: "docs", python: "3.8", extras: "docs", command: "sphinx-build -W docs docs/build"},
+          {env: "isort", python: "3.8", extras: "main,dev", command: "isort -rc -y"},
+        ]
+    container:
+      image: python:${{ matrix.step.python }}-alpine
+      env:
+        COVERAGE_FILE: ".coverage.${{ matrix.step.env }}.${{ matrix.step.python }}"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Setup env
+        run: |
+          apk add \
+            gcc \
+            libc-dev
+      - name: Install with deps
+        run: |
+          pip install .[${{ matrix.step.extras }}]
+
+      - name: Run command
+        run: |
+          ${{ matrix.step.command }}
