@@ -137,7 +137,7 @@ dev = [
     "flake8-executable",
     "flake8-expression-complexity",
     "flake8-fixme",
-    "flake8-functions",
+    "flake8-functions",  #  "mr_proper==0.0.4",  # support py36
     "flake8-future-import",
     "flake8-import-order",
     "flake8-isort",
@@ -158,7 +158,7 @@ dev = [
     "flake8-scrapy",
     "flake8-spellcheck",
     "flake8-sql",
-    "flake8-strict",
+    "flake8-strict",  "black==21.10b0", # https://github.com/smarkets/flake8-strict/issues/41
     "flake8-string-format",
     "flake8-tidy-imports",
     "flake8-todo",
@@ -170,7 +170,7 @@ dev = [
     "pylint",
     "typing-extensions", # required by WPS but isn't installed by DepHell
     "wemake-python-styleguide",
-
+    "mypy",
     "pytest",
     "isort[pyproject]",
 ]
