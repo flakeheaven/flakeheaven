@@ -44,7 +44,7 @@ def get_messages(code: str, content: str) -> Dict[str, str]:
 def extract_default(name: str) -> Dict[str, str]:
     module = import_module(name)
     if module.__file__ is None:
-        raise NotImplementedError(f"Unable to parse {name} module")
+        raise NotImplementedError(f'Unable to parse {name} module')
     content = Path(module.__file__).read_text()
     return get_messages(code='', content=content)
 
