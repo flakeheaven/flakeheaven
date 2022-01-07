@@ -70,6 +70,15 @@ def test_version(capsys):
     assert 'Flake8' in captured.out
 
 
+def test_plugins(capsys):
+    result = main(['plugins'])
+    assert result == (0, '')
+    captured = capsys.readouterr()
+    assert captured.err == ''
+    assert 'NAME' in captured.out
+    assert 'RULES' in captured.out
+
+
 @patch('sys.argv', ['flakeheaven'])
 def test_lint_help(capsys):
     result = main(['lint', '--help'])

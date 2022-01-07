@@ -47,26 +47,6 @@ def get_installed(app) -> Iterator[Dict[str, Any]]:
                 raise ValueError('Invalid code format: {}'.format(code))
             plugins_codes[key].append(code)
 
-    plugins = getattr(app.formatting_plugins, 'plugins')
-    for plugin_name in plugins:
-        if plugin_name != 'pylint':
-            continue
-        key = ('formatting_plugins', plugin_name)
-        plugin = plugins[plugin_name]
-        versions[key[-1]] = plugin._version
-
-        # if codes for plugin specified explicitly in ALIASES, use it
-        codes = ALIASES.get(plugin_name, [])
-        if codes:
-            plugins_codes[key] = list(codes)
-            continue
-
-        # otherwise get codes from plugin entrypoint
-        code = plugin_name
-        if not REX_CODE.match(code):
-            raise ValueError('Invalid code format: {}'.format(code))
-        plugins_codes[key].append(code)
-
     if 'flake8-docstrings' in versions:
         versions['flake8-docstrings'] = versions['flake8-docstrings'].split(',')[0]
 

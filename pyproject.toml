@@ -171,7 +171,7 @@ dev = [
     "wemake-python-styleguide",
     "mypy",
     "pytest",
-    "isort[pyproject]",
+    "isort",
 ]
 
 [build-system]

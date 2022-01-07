@@ -6,7 +6,7 @@ from typing import Sequence
 
 try:
     # external
-    from pylint.__pkginfo__ import version
+    from pylint.__pkginfo__ import __version__ as version
     from pylint.lint import Run
     from pylint.reporters import BaseReporter
 except ImportError:
