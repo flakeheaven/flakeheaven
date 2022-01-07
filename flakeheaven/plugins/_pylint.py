@@ -3,8 +3,9 @@ from ast import AST
 from tokenize import TokenInfo
 from typing import Sequence
 
-# external
+
 try:
+    # external
     from pylint.__pkginfo__ import version
     from pylint.lint import Run
     from pylint.reporters import BaseReporter

@@ -24,7 +24,7 @@ jobs:
           {env: "typing", python: "3.8", extras: "main,dev", command: "mypy --ignore-missing-imports --allow-redefinition flakeheaven/"},
           # additional
           {env: "docs", python: "3.8", extras: "docs", command: "sphinx-build -W docs docs/build"},
-          {env: "isort", python: "3.8", extras: "main,dev", command: "isort -rc -y"},
+          {env: "isort", python: "3.8", extras: "main,dev", command: "isort --check flakeheaven"},
         ]
     container:
       image: python:${{ matrix.step.python }}-alpine

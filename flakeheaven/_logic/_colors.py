@@ -2,8 +2,8 @@
 import re
 from typing import List
 
-# project
-from colorama import Fore, init, Style
+# external
+from colorama import Fore, Style, init
 
 
 init()
