@@ -43,6 +43,8 @@ def get_messages(code: str, content: str) -> Dict[str, str]:
 
 def extract_default(name: str) -> Dict[str, str]:
     module = import_module(name)
+    if module.__file__ is None:
+        raise NotImplementedError(f"Unable to parse {name} module")
     content = Path(module.__file__).read_text()
     return get_messages(code='', content=content)
 
@@ -335,7 +337,7 @@ def extract_flake8_django() -> Dict[str, str]:
     for path in Path(flake8_django.checkers.__path__[0]).iterdir():
         module = import_module('flake8_django.checkers.' + path.stem)
         for class_name in dir(module):
-            cls = getattr(module, class_name, None)
+            cls = getattr(module, class_name)
             if not hasattr(cls, 'code'):
                 continue
             if '0' not in cls.__name__:

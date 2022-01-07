@@ -21,7 +21,7 @@ jobs:
           {env: "pytest", python: "3.8", extras: "main,dev", command: "pytest tests/"},
           {env: "pytest", python: "3.9", extras: "main,dev", command: "pytest tests/"},
           {env: "main", python: "3.8", extras: "main,dev", command: "flakeheaven lint"},
-          {env: "typing", python: "3.8", extras: "main,dev", command: "mypy --ignore-missing-imports --allow-redefinition flakeheaven/"},
+          {env: "typing", python: "3.8", extras: "main,dev", command: "mypy --ignore-missing-imports --allow-redefinition flakeheaven/ > /dev/null || yes | mypy --install-types && mypy --ignore-missing-imports --allow-redefinition flakeheaven/"},
           # additional
           {env: "docs", python: "3.8", extras: "docs", command: "sphinx-build -W docs docs/build"},
           {env: "isort", python: "3.8", extras: "main,dev", command: "isort --check flakeheaven"},
