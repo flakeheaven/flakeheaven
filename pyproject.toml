@@ -93,7 +93,7 @@ Documentation = "https://github.com/flakeheaven/flakeheaven/blob/master/docs/"
 
 [tool.flit.scripts]
 flakeheaven = "flakeheaven:entrypoint"
-flake8helled = "flakeheaven:flake8_entrypoint"
+flake8heavened = "flakeheaven:flake8_entrypoint"
 
 [tool.flit.entrypoints."flake8.extension"]
 pylint = "flakeheaven.plugins:PyLintChecker"
