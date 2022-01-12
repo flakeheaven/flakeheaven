@@ -1,6 +1,7 @@
 # FlakeHeaven
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://readthedocs.org/projects/flakeheaven/badge/?version=latest)](https://flakeheaven.readthedocs.io/en/latest/)
 
 FlakeHeaven is a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
 
@@ -9,22 +10,22 @@ flakehell/flakehell are [no longer maintained](https://github.com/flakehell/flak
 
 FlakeHeaven works with Flake8 4.0.1 or greater. This fork will be [maintained by the community](https://github.com/flakeheaven/flakeheaven/discussions/1) that developed the existing forks.
 
-+ [Lint md, rst, ipynb, and more](https://github.com/flakeheaven/flakeheaven/blob/master/docs/parsers.md).
-+ [Shareable and remote configs](https://github.com/flakeheaven/flakeheaven/blob/master/docs/config.md#base).
-+ [Legacy-friendly](https://github.com/flakeheaven/flakeheaven/blob/master/docs/commands/baseline.md): ability to get report only about new errors.
++ [Lint md, rst, ipynb, and more](https://flakeheaven.readthedocs.io/en/latest/parsers.html).
++ [Shareable and remote configs](https://flakeheaven.readthedocs.io/en/latest/config.html#base).
++ [Legacy-friendly](https://flakeheaven.readthedocs.io/en/latest/commands/baseline.html): ability to get report only about new errors.
 + Caching for much better performance.
-+ [Use only specified plugins](https://github.com/flakeheaven/flakeheaven/blob/master/docs/config.md#plugins), not everything installed.
-+ [Make output beautiful](https://github.com/flakeheaven/flakeheaven/blob/master/docs/formatters.md).
++ [Use only specified plugins](https://flakeheaven.readthedocs.io/en/latest/config.html#plugins), not everything installed.
++ [Make output beautiful](https://flakeheaven.readthedocs.io/en/latest//formatters.html).
 + [pyproject.toml](https://www.python.org/dev/peps/pep-0518/) support.
-+ [Check that all required plugins are installed](https://github.com/flakeheaven/flakeheaven/blob/master/docs/commands/missed.md).
-+ [Syntax highlighting in messages and code snippets](https://github.com/flakeheaven/flakeheaven/blob/master/docs/formatters.md#colored-with-source-code).
++ [Check that all required plugins are installed](https://flakeheaven.readthedocs.io/en/latest/commands/missed.html).
++ [Syntax highlighting in messages and code snippets](https://flakeheaven.readthedocs.io/en/latest/formatters.html#colored-with-source-code).
 + [PyLint](https://github.com/PyCQA/pylint) integration.
-+ [Powerful GitLab support](https://github.com/flakeheaven/flakeheaven/blob/master/docs/formatters.md#gitlab).
++ [Powerful GitLab support](https://flakeheaven.readthedocs.io/en/latest/formatters.html#gitlab).
 + Codes management:
     + Manage codes per plugin.
     + Enable and disable plugins and codes by wildcard.
-    + [Show codes for installed plugins](https://github.com/flakeheaven/flakeheaven/blob/master/docs/commands/plugins.md).
-    + [Show all messages and codes for a plugin](https://github.com/flakeheaven/flakeheaven/blob/master/docs/commands/codes.md).
+    + [Show codes for installed plugins](https://flakeheaven.readthedocs.io/en/latest/commands/plugins.html).
+    + [Show all messages and codes for a plugin](https://flakeheaven.readthedocs.io/en/latest/commands/codes.html).
     + Allow codes intersection for different plugins.
 
 ![output example](./assets/grouped.png)
@@ -98,7 +99,7 @@ flakeheaven lint
 
 This command accepts all the same arguments as Flake8.
 
-Read [github.com/flakeheaven/flakeheaven/blob/master/docs](https://github.com/flakeheaven/flakeheaven/blob/master/docs/) for more information.
+Read [the documentation](https://flakeheaven.readthedocs.io/en/latest/) for more information.
 
 ## Contributing
 
