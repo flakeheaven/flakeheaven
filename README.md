@@ -19,12 +19,12 @@ FlakeHeaven works with Flake8 4.0.1 or greater. This fork will be [maintained by
 + [Check that all required plugins are installed](https://flakeheaven.readthedocs.io/en/latest/commands/missed.html).
 + [Syntax highlighting in messages and code snippets](https://flakeheaven.readthedocs.io/en/latest/formatters.html#colored-with-source-code).
 + [PyLint](https://github.com/PyCQA/pylint) integration.
-+ [Powerful GitLab support](https://flakeheaven.readthedocs.io/en/latest//formatters.html#gitlab).
++ [Powerful GitLab support](https://flakeheaven.readthedocs.io/en/latest/formatters.html#gitlab).
 + Codes management:
     + Manage codes per plugin.
     + Enable and disable plugins and codes by wildcard.
     + [Show codes for installed plugins](https://flakeheaven.readthedocs.io/en/latest/commands/plugins.html).
-    + [Show all messages and codes for a plugin](https://flakeheaven.readthedocs.io/en/latest//commands/codes.html).
+    + [Show all messages and codes for a plugin](https://flakeheaven.readthedocs.io/en/latest/commands/codes.html).
     + Allow codes intersection for different plugins.
 
 ![output example](./assets/grouped.png)
