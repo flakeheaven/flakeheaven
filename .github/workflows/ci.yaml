@@ -44,4 +44,5 @@ jobs:
           poetry install ${{ matrix.step.extras }}
       - name: Run command
         run: |
-          poetry run ${{ matrix.step.command }}
+          source ./.venv/bin/activate  # use venv created by poetry
+          ${{ matrix.step.command }}
