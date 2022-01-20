@@ -47,16 +47,16 @@ pygments = "*"
 toml = "*"
 urllib3 = "*"
 importlib-metadata = {version = "^1.0", python = "<3.8"}
-
-[tool.poetry.extras]
-docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
-
-[tool.poetry.dev-dependencies]
 ## Documentation
 alabaster = {version = "*", optional = true}
 pygments-github-lexers = {version = "*", optional = true}
 recommonmark = {version = "*", optional = true}
 sphinx = {version = "*", optional = true}
+
+[tool.poetry.extras]
+docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
+
+[tool.poetry.dev-dependencies]
 ## Testing
 dlint = "*"
 flake8-2020 = "*"

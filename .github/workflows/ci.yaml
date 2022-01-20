@@ -13,7 +13,7 @@ env:
 
 jobs:
   default:
-    name: "${{ matrix.step.env }} '${{ matrix.step.command }}' @ py${{ matrix.step.python }})"
+    name: "${{ matrix.step.env }} '${{ matrix.step.command }}' (@py${{ matrix.step.python }})"
     runs-on: ubuntu-latest
     strategy:
       matrix:
