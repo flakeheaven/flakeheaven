@@ -6,4 +6,4 @@ except ImportError:
     # external
     import importlib_metadata as metadata  # type: ignore
 
-__version__ = metadata.version("flakeheaven")
+__version__ = metadata.version('flakeheaven')
