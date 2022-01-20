@@ -111,10 +111,8 @@ Contributions are welcome! A few ideas what you can contribute:
 + Made an article about FlakeHeaven? Great! Let's add it into the `README.md`.
 + Don't have time to code? No worries! Just tell your friends and subscribers about the project. More users -> more contributors -> more cool features.
 
-A convenient way to run tests is using [Poetry](https://python-poetry.org/docs/master/#installation):
-
+A convenient way to run tests is using [Poetry](https://python-poetry.org/docs/master/#installation). Use your preferred method to install poetry and then run:
 ```bash
-pip3 install poetry
 poetry install
 poetry run pytest tests
 ```
