@@ -30,17 +30,12 @@ jobs:
           {env: "isort", python: "3.8", extras: "", command: "isort --check flakeheaven"},
         ]
     container:
-      image: python:${{ matrix.step.python }}-slim-bullseye
+      image: python:${{ matrix.step.python }}-bullseye
       env:
         COVERAGE_FILE: ".coverage.${{ matrix.step.env }}.${{ matrix.step.python }}"
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Setup env
-        run: |
-          apk add \
-            gcc \
-            libc-dev
       - name: Install poetry
         run: pip install poetry
       - name: Install with deps
