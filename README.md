@@ -111,13 +111,12 @@ Contributions are welcome! A few ideas what you can contribute:
 + Made an article about FlakeHeaven? Great! Let's add it into the `README.md`.
 + Don't have time to code? No worries! Just tell your friends and subscribers about the project. More users -> more contributors -> more cool features.
 
-A convenient way to run tests is using [DepHell](https://github.com/dephell/dephell):
+A convenient way to run tests is using [Poetry](https://python-poetry.org/docs/master/#installation):
 
 ```bash
-curl -L dephell.org/install | python3
-dephell venv create --env=pytest
-dephell deps install --env=pytest
-dephell venv run --env=pytest
+pip3 install poetry
+poetry install
+poetry run pytest tests
 ```
 
 Bug-tracker is disabled by-design to shift contributions from words to actions. Please, help us make the project better and don't stalk maintainers in social networks and on the street.
