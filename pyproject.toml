@@ -1,3 +1,127 @@
+[tool.poetry]
+name = "flakeheaven"
+version = "0.11.0"
+description = "FlakeHeaven is a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool."
+authors = ["Gram <master_fess@mail.ru>"]
+repository = "https://github.com/flakeheaven/flakeheaven"
+homepage = "https://github.com/flakeheaven/flakeheaven"
+documentation = "https://github.com/flakeheaven/flakeheaven/blob/master/docs/"
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Framework :: Flake8",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[tool.poetry.scripts]
+flakeheaven = "flakeheaven:entrypoint"
+flake8heavened = "flakeheaven:flake8_entrypoint"
+
+[tool.poetry.plugins."flake8.extension"]
+pylint = "flakeheaven.plugins:PyLintChecker"
+
+[tool.poetry.plugins."flake8.report"]
+baseline = "flakeheaven.formatters:BaseLineFormatter"
+colored = "flakeheaven.formatters:ColoredFormatter"
+gitlab = "flakeheaven.formatters:GitlabFormatter"
+grouped = "flakeheaven.formatters:GroupedFormatter"
+json = "flakeheaven.formatters:JSONFormatter"
+stat = "flakeheaven.formatters:StatFormatter"
+
+[tool.poetry.dependencies]
+python = "^3.6.2"
+colorama = "*"
+entrypoints = "*"
+flake8 = "^4.0.1"
+pygments = "*"
+toml = "*"
+urllib3 = "*"
+importlib-metadata = {version = "^1.0", python = "<3.8"}
+
+[tool.poetry.extras]
+docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
+
+[tool.poetry.dev-dependencies]
+## Documentation
+alabaster = {version = "*", optional = true}
+pygments-github-lexers = {version = "*", optional = true}
+recommonmark = {version = "*", optional = true}
+sphinx = {version = "*", optional = true}
+## Testing
+dlint = "*"
+flake8-2020 = "*"
+flake8-aaa = "*"
+flake8-absolute-import = "*"
+flake8-alfred = "*"
+flake8-annotations-complexity = "*"
+flake8-bandit = "*"
+flake8-black = "*"
+flake8-broken-line = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-coding = "*"
+flake8-cognitive-complexity = "*"
+flake8-commas = "*"
+flake8-comprehensions = "*"
+flake8-debugger = "*"
+flake8-django = "*"
+flake8-docstrings = "*"
+flake8-eradicate = "*"
+flake8-executable = "*"
+flake8-expression-complexity = "*"
+flake8-fixme = "*"
+flake8-functions = "*"  #  "mr_proper==0.0.4",  # support py36
+flake8-future-import = "*"
+flake8-import-order = "*"
+flake8-isort = "*"
+flake8-logging-format = "*"
+flake8-mock = "*"
+flake8-mutable = "*"
+flake8-mypy = "*"
+flake8-pep3101 = "*"
+flake8-pie = "*"
+flake8-print = "*"
+flake8-printf-formatting = "*"
+flake8-pyi = "*"
+flake8-pytest-style = "*"
+flake8-pytest = "*"
+flake8-quotes = "*"
+flake8-requirements = "*"
+flake8-rst-docstrings = "*"
+flake8-scrapy = "*"
+flake8-spellcheck = "*"
+flake8-sql = "*"
+flake8-strict = "*"
+black = "21.10b0" # https://github.com/smarkets/flake8-strict/issues/41
+flake8-string-format = "*"
+flake8-tidy-imports = "*"
+flake8-todo = "*"
+flake8-use-fstring = "*"
+flake8-variables-names = "*"
+mccabe = "*"
+pandas-vet = "*"
+pep8-naming = "*"
+pylint = "*"
+typing-extensions = "*" # required by WPS but isn't installed by DepHell
+wemake-python-styleguide = "*"
+mypy = "*"
+pytest = "*"
+isort = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.flakeheaven]
 exclude = ["example.py", "setup.py", "README.rst"]
 max_line_length = 120
@@ -9,36 +133,6 @@ pyflakes = ["+*"]
 flake8-commas = ["+*"]
 flake8-quotes = ["+*"]
 pylint = ["+F*", "+E*", "-E0611", "-E1101", "-E0401", "-E1102", "-E1123"]
-
-# -- DEPHELL -- #
-
-[tool.dephell.main]
-from = {format = "flit", path = "pyproject.toml"}
-to = {format = "setuppy", path = "setup.py"}
-envs = ["main", "dev"]
-tag = "v."
-command = "python -m flakeheaven lint"
-
-[tool.dephell.pytest]
-from = {format = "flit", path = "pyproject.toml"}
-envs = ["main", "dev"]
-tests = ["tests"]
-command = "python -m pytest tests/"
-
-[tool.dephell.docs]
-from = {format = "flit", path = "pyproject.toml"}
-envs = ["docs"]
-command = "sphinx-build -W docs docs/build"
-
-[tool.dephell.isort]
-from = {format = "flit", path = "pyproject.toml"}
-envs = ["main", "dev"]
-command = "isort -rc -y"
-
-[tool.dephell.typing]
-from = {format = "flit", path = "pyproject.toml"}
-envs = ["main"]
-command = "mypy --ignore-missing-imports --allow-redefinition flakeheaven/"
 
 # -- ISORT -- #
 
@@ -54,126 +148,3 @@ import_heading_stdlib = "built-in"
 import_heading_thirdparty = "external"
 import_heading_firstparty = "project"
 import_heading_localfolder = "app"
-
-# -- FLIT -- #
-
-[tool.flit.metadata]
-module="flakeheaven"
-author="Gram (@orsinium)"
-author-email="master_fess@mail.ru"
-home-page="https://github.com/flakeheaven/flakeheaven"
-requires-python=">=3.5"
-requires=[
-    "colorama",
-    "entrypoints",
-    "flake8>=4.0.1",
-    "pygments",
-    "toml",
-    "urllib3",
-]
-description-file="README.md"
-classifiers=[
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Console",
-    "Framework :: Flake8",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.5",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Quality Assurance",
-]
-
-[tool.flit.metadata.urls]
-Documentation = "https://github.com/flakeheaven/flakeheaven/blob/master/docs/"
-
-[tool.flit.scripts]
-flakeheaven = "flakeheaven:entrypoint"
-flake8heavened = "flakeheaven:flake8_entrypoint"
-
-[tool.flit.entrypoints."flake8.extension"]
-pylint = "flakeheaven.plugins:PyLintChecker"
-
-[tool.flit.entrypoints."flake8.report"]
-baseline = "flakeheaven.formatters:BaseLineFormatter"
-colored = "flakeheaven.formatters:ColoredFormatter"
-gitlab = "flakeheaven.formatters:GitlabFormatter"
-grouped = "flakeheaven.formatters:GroupedFormatter"
-json = "flakeheaven.formatters:JSONFormatter"
-stat = "flakeheaven.formatters:StatFormatter"
-
-[tool.flit.metadata.requires-extra]
-docs = [
-    "alabaster",
-    "pygments-github-lexers",
-    "recommonmark",
-    "sphinx",
-]
-dev = [
-    "dlint",
-    "flake8-2020",
-    "flake8-aaa",
-    "flake8-absolute-import",
-    "flake8-alfred",
-    "flake8-annotations-complexity",
-    "flake8-bandit",
-    "flake8-black",
-    "flake8-broken-line",
-    "flake8-bugbear",
-    "flake8-builtins",
-    "flake8-coding",
-    "flake8-cognitive-complexity",
-    "flake8-commas",
-    "flake8-comprehensions",
-    "flake8-debugger",
-    "flake8-django",
-    "flake8-docstrings",
-    "flake8-eradicate",
-    "flake8-executable",
-    "flake8-expression-complexity",
-    "flake8-fixme",
-    "flake8-functions",  #  "mr_proper==0.0.4",  # support py36
-    "flake8-future-import",
-    "flake8-import-order",
-    "flake8-isort",
-    "flake8-logging-format",
-    "flake8-mock",
-    "flake8-mutable",
-    "flake8-mypy",
-    "flake8-pep3101",
-    "flake8-pie",
-    "flake8-print",
-    "flake8-printf-formatting",
-    "flake8-pyi",
-    "flake8-pytest-style",
-    "flake8-pytest",
-    "flake8-quotes",
-    "flake8-requirements",
-    "flake8-rst-docstrings",
-    "flake8-scrapy",
-    "flake8-spellcheck",
-    "flake8-sql",
-    "flake8-strict",  "black==21.10b0", # https://github.com/smarkets/flake8-strict/issues/41
-    "flake8-string-format",
-    "flake8-tidy-imports",
-    "flake8-todo",
-    "flake8-use-fstring",
-    "flake8-variables-names",
-    "mccabe",
-    "pandas-vet",
-    "pep8-naming",
-    "pylint",
-    "typing-extensions", # required by WPS but isn't installed by DepHell
-    "wemake-python-styleguide",
-    "mypy",
-    "pytest",
-    "isort",
-]
-
-[build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
