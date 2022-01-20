@@ -123,7 +123,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.flakeheaven]
-exclude = ["example.py", "setup.py", "README.rst"]
+exclude = ["example.py", "setup.py", "README.rst", ".venv", ".git"]
 max_line_length = 120
 show_source = true
 
