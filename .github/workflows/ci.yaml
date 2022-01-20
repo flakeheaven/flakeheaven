@@ -30,7 +30,7 @@ jobs:
           {env: "isort", python: "3.8", extras: "", command: "isort --check flakeheaven"},
         ]
     container:
-      image: python:${{ matrix.step.python }}-alpine
+      image: python:${{ matrix.step.python }}-slim-bullseye
       env:
         COVERAGE_FILE: ".coverage.${{ matrix.step.env }}.${{ matrix.step.python }}"
     steps:
