@@ -9,7 +9,8 @@ on:
       - master
 
 env:
-  POETRY_VIRTUALENVS_CREATE: "false"
+  POETRY_VIRTUALENVS_CREATE: "true"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
 
 jobs:
   default:
@@ -43,4 +44,4 @@ jobs:
           poetry install ${{ matrix.step.extras }}
       - name: Run command
         run: |
-          ${{ matrix.step.command }}
+          poetry run ${{ matrix.step.command }}
