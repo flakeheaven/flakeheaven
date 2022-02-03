@@ -45,7 +45,7 @@ path can be either a path prefix (from the project root) or a [glob pattern](htt
 Option `base` allows to specify base config from which you want to inherit this one. It can be path to local config or remote URL. You can specify one path or list of paths as well. For example:
 
 ```toml
-base = ["https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml", ".flakeheaven.toml"]
+base = ["https://raw.githubusercontent.com/flakeheaven/flakeheaven/main/pyproject.toml", ".flakeheaven.toml"]
 max_line_length = 90
 ```
 
@@ -86,7 +86,7 @@ FlakeHeaven doesn't support some flake8 option by design. Flake8 has a long hist
 ```toml
 [tool.flakeheaven]
 # optionally inherit from remote config (or local if you want)
-base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
+base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/main/pyproject.toml"
 # specify any flake8 options. For example, exclude "example.py":
 exclude = ["example.py"]
 # make output nice

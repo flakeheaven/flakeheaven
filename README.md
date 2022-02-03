@@ -54,7 +54,7 @@ First of all, let's create `pyproject.toml` config:
 ```toml
 [tool.flakeheaven]
 # optionally inherit from remote config (or local if you want)
-base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
+base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/main/pyproject.toml"
 # specify any flake8 options. For example, exclude "example.py":
 exclude = ["example.py"]
 # make output nice

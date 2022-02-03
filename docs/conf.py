@@ -24,7 +24,7 @@ extensions = [
 
 templates_path = ['_templates']
 source_suffix = ['.rst', '.md']
-master_doc = 'index'
+root_doc = 'index'
 
 project = 'FlakeHeaven'
 copyright = '{}, Gram (@orsinium)'.format(date.today().year)
@@ -73,7 +73,7 @@ htmlhelp_basename = 'flakeheavendoc'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'flakeheaven.tex', 'FlakeHeaven Documentation',
+    (root_doc, 'flakeheaven.tex', 'FlakeHeaven Documentation',
      '@orsinium', 'manual'),
 ]
 
@@ -82,7 +82,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, 'flakeheaven', 'FlakeHeaven Documentation', [author], 1)]
+man_pages = [(root_doc, 'flakeheaven', 'FlakeHeaven Documentation', [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -91,7 +91,7 @@ man_pages = [(master_doc, 'flakeheaven', 'FlakeHeaven Documentation', [author], 
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'flakeheaven', 'FlakeHeaven Documentation',
+    (root_doc, 'flakeheaven', 'FlakeHeaven Documentation',
      author, 'FlakeHeaven', 'One line description of project.', 'Miscellaneous'),
 ]
 
