@@ -4,7 +4,7 @@ FlakeHeaven has flake8 deep in its core but they are different. So, when migrati
 
 ## Flake8 configurations are ignored
 
-FlakeHeaven reads flake8 configs and supports most of the options. However, some options (like `ignore` and `select`) ignored by design. The motivation is to get rid of over-complicated and unstable way how flake8 select and deselect plugins and provide a better way to do so. See [ignored options](https://github.com/flakeheaven/flakeheaven/blob/master/docs/config.md#ignored-options) for details.
+FlakeHeaven reads flake8 configs and supports most of the options. However, some options (like `ignore` and `select`) ignored by design. The motivation is to get rid of over-complicated and unstable way how flake8 select and deselect plugins and provide a better way to do so. See [ignored options](https://github.com/flakeheaven/flakeheaven/blob/main/docs/config.md#ignored-options) for details.
 
 ## It is slow
 
