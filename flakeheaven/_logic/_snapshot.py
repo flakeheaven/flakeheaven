@@ -12,7 +12,7 @@ from flake8.options.manager import OptionManager
 
 
 CACHE_PATH = Path(os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache' / 'flakeheaven'))
-THRESHOLD = 3600 * 24  # 1 day
+THRESHOLD = int(os.getenv('FLAKEHEAVEN_CACHE_TIMEOUT', 3600 * 24))  # default is 1 day
 
 
 def prepare_cache(path=CACHE_PATH):
