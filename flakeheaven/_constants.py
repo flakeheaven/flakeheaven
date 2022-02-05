@@ -90,7 +90,6 @@ KNOWN_PLUGINS = MappingProxyType({
     'flake8-rst-docstrings': 'https://github.com/peterjc/flake8-rst-docstrings',
     'flake8-spellcheck': 'https://github.com/MichaelAquilina/flake8-spellcheck',
     'flake8-sql': 'https://github.com/pgjones/flake8-sql',
-    'flake8-strict': 'https://github.com/smarkets/flake8-strict',
     'flake8-string-format': 'https://github.com/xZise/flake8-string-format',
     'flake8-todo': 'https://github.com/schlamar/flake8-todo',
     'flake8-use-fstring': 'https://github.com/MichaelKim0407/flake8-use-fstring',

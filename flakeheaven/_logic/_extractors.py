@@ -369,16 +369,6 @@ def extract_flake8_executable() -> Dict[str, str]:
     return codes
 
 
-def extract_flake8_strict() -> Dict[str, str]:
-    # external
-    from flake8_strict import ErrorCode
-
-    codes = dict()
-    for code, message in ErrorCode._member_map_.items():
-        codes[code] = message.value
-    return codes
-
-
 def extract_flake8_docstrings() -> Dict[str, str]:
     # external
     from pydocstyle.violations import ErrorRegistry

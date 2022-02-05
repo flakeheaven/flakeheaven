@@ -231,14 +231,6 @@ optional = false
 python-versions = ">=2.7"
 
 [[package]]
-name = "enum-compat"
-version = "0.0.3"
-description = "enum/enum34 compatibility package"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "eradicate"
 version = "2.0.0"
 description = "Removes commented-out code."
@@ -766,19 +758,6 @@ python-versions = "*"
 [package.dependencies]
 flake8 = "*"
 sqlparse = "*"
-
-[[package]]
-name = "flake8-strict"
-version = "0.2.1"
-description = "Flake8 plugin that checks Python code against a set of opinionated style rules"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-black = {version = "*", markers = "python_version >= \"3.6\""}
-enum-compat = "*"
-flake8 = "*"
 
 [[package]]
 name = "flake8-string-format"
@@ -1529,7 +1508,7 @@ docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "4e7b8338400797900157c862d84bffab25feeb989f530bb4754396ffaa8f3bf5"
+content-hash = "5d3796d5ebf1d5e2a7b3a6a66160e649c15985d5cf1c769b216eec461a4db0ce"
 
 [metadata.files]
 alabaster = [
@@ -1613,10 +1592,6 @@ docutils = [
 entrypoints = [
     {file = "entrypoints-0.3-py2.py3-none-any.whl", hash = "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19"},
     {file = "entrypoints-0.3.tar.gz", hash = "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"},
-]
-enum-compat = [
-    {file = "enum-compat-0.0.3.tar.gz", hash = "sha256:3677daabed56a6f724451d585662253d8fb4e5569845aafa8bb0da36b1a8751e"},
-    {file = "enum_compat-0.0.3-py3-none-any.whl", hash = "sha256:88091b617c7fc3bbbceae50db5958023c48dc40b50520005aa3bf27f8f7ea157"},
 ]
 eradicate = [
     {file = "eradicate-2.0.0.tar.gz", hash = "sha256:27434596f2c5314cc9b31410c93d8f7e8885747399773cd088d3adea647a60c8"},
@@ -1792,10 +1767,6 @@ flake8-spellcheck = [
 flake8-sql = [
     {file = "flake8-SQL-0.4.1.tar.gz", hash = "sha256:a8cdd689a5549c6ec73b4478aae152d5e3199270d23a371653f260f7a0e9dedd"},
     {file = "flake8_SQL-0.4.1-py2.py3-none-any.whl", hash = "sha256:25cd0485ba5feb5b1abfdd0c5b607e014300bcc3fa2a416a18cf62ecdbaaea96"},
-]
-flake8-strict = [
-    {file = "flake8_strict-0.2.1-py2.py3-none-any.whl", hash = "sha256:2ef66f75f9215c2084ae7d1b18e158a3c392141a5621ecab28858256ea75d41e"},
-    {file = "flake8_strict-0.2.1.tar.gz", hash = "sha256:75d5c11babe3f3b2bc5349e645112571a1d80d6183bda99afe5ffdfc70192d10"},
 ]
 flake8-string-format = [
     {file = "flake8-string-format-0.3.0.tar.gz", hash = "sha256:65f3da786a1461ef77fca3780b314edb2853c377f2e35069723348c8917deaa2"},
