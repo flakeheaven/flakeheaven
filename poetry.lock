@@ -999,7 +999,7 @@ pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
 [[package]]
 name = "pandas-vet"
-version = "0.2.2"
+version = "0.2.3"
 description = "A flake8 plugin to lint pandas in an opinionated way"
 category = "dev"
 optional = false
@@ -1508,7 +1508,7 @@ docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "5d3796d5ebf1d5e2a7b3a6a66160e649c15985d5cf1c769b216eec461a4db0ce"
+content-hash = "6c9afe4eda753bb9cb08c8d5ea20910f7e92c74046574f969e16126573c07ac4"
 
 [metadata.files]
 alabaster = [
@@ -1970,8 +1970,8 @@ packaging = [
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
 ]
 pandas-vet = [
-    {file = "pandas-vet-0.2.2.tar.gz", hash = "sha256:0a316c3edaaa1bcd772bfaea0e8d2b2aa409b740198746a2b60f2007b313f42e"},
-    {file = "pandas_vet-0.2.2-py3-none-any.whl", hash = "sha256:961235064ebe5b38ca9c3f45961fdce61796a01aea1f07b06b67f6b359aabea2"},
+    {file = "pandas-vet-0.2.3.tar.gz", hash = "sha256:58b64027a4c192b4b62272c1d8fdecc1733352452401282b697c1a32abe4656a"},
+    {file = "pandas_vet-0.2.3-py3-none-any.whl", hash = "sha256:349e4240399ead316f64f9afc8e94a5bd5cfff45d7f448c5c22989e86c4ac782"},
 ]
 pathspec = [
     {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},

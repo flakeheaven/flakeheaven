@@ -108,7 +108,7 @@ flake8-todo = "*"
 flake8-use-fstring = "*"
 flake8-variables-names = "*"
 mccabe = "*"
-pandas-vet = "*"
+pandas-vet = ">=0.2.3" # https://github.com/flakeheaven/flakeheaven/pull/49
 pep8-naming = "*"
 pylint = "*"
 typing-extensions = "*"

@@ -1,6 +1,6 @@
 # built-in
 import sys
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from itertools import chain
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -88,6 +88,14 @@ class FlakeHeavenApplication(Application):
             return Path(known.config).expanduser(), unknown
         return None, argv
 
+    def parse_preliminary_options(
+        self, argv: List[str],
+    ) -> Tuple[Namespace, List[str]]:
+        # if passed `--config` with path to TOML-config, we should extract it
+        # before passing into flake8 mechanisms
+        self._config_path, argv = self.extract_toml_config_path(argv=argv)
+        return super().parse_preliminary_options(argv)
+
     def parse_configuration_and_cli(self, config_finder, argv: List[str]) -> None:
         parser = self.option_manager.parser
         for action in parser._actions.copy():
@@ -98,10 +106,6 @@ class FlakeHeavenApplication(Application):
                 continue
             parser._handle_conflict_resolve(None, [(name, action)])
 
-        # if passed `--config` with path to TOML-config, we should extract it
-        # before passing into flake8 mechanisms
-        config_path, argv = self.extract_toml_config_path(argv=argv)
-
         # make default config
         config, _ = self.option_manager.parse_args([])
         config.__dict__.update(DEFAULTS)
@@ -109,7 +113,7 @@ class FlakeHeavenApplication(Application):
         # patch config wtih TOML
         # If config is explicilty passed, it will be used
         # If config isn't specified, flakeheaven will lookup for it
-        config.__dict__.update(self.get_toml_config(config_path))
+        config.__dict__.update(self.get_toml_config(self._config_path))
 
         # Parse CLI options and legacy flake8 configs.
         # Based on `aggregate_options`.

@@ -267,3 +267,47 @@ def test_exclude_file(capsys, tmp_path: Path):
     ./checked.py:1:1: F401 'sys' imported but unused
     """
     assert captured.out.strip() == dedent(exp).strip()
+
+
+ISSUE_48_CHECKS = [
+    """
+    [[array]]
+    name = "value"
+
+""",  # pandas-vet 0.2.3
+    """
+    [[array]]
+    name = "value"
+
+    [[array]]
+    name = "value"
+    """,
+]
+
+
+@patch('sys.argv', ['flakeheaven'])
+@pytest.mark.parametrize(
+    'text',
+    ISSUE_48_CHECKS,
+)
+def test_config_cli_arg_toml(capsys, tmp_path: Path, text):
+    """Verify that the application handles the --config argv correctly.
+
+    See https://github.com/flakeheaven/flakeheaven/issues/48
+    """
+    # write valid toml array but invalid configparser
+    pyproject = tmp_path / 'pyproject.toml'
+    pyproject.write_text(dedent(text))
+
+    # make source file content
+    dummy = tmp_path / 'dummy.py'
+    dummy.write_text('# not empty\n')
+
+    with chdir(tmp_path):
+        # call the command with passing matching `--config`
+        result = main(['lint', f'--config={pyproject.resolve()}', str(dummy.resolve())])
+
+    assert result == (0, '')
+    captured = capsys.readouterr()
+    assert captured.err == ''
+    assert captured.out == ''
