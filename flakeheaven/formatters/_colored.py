@@ -38,7 +38,7 @@ class ColoredFormatter(Default):
         )
         plugin = getattr(error, 'plugin', None)
         if plugin:
-            line += colored(' [{}]'.format(plugin), 'grey')
+            line += colored(' [{}]'.format(plugin), 'magenta')
         return line
 
     def show_source(self, error: Violation) -> str:

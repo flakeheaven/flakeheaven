@@ -43,7 +43,7 @@ class GroupedFormatter(ColoredFormatter):
         )
         plugin = getattr(error, 'plugin', None)
         if plugin:
-            line += colored(' [{}]'.format(plugin), 'grey')
+            line += colored(' [{}]'.format(plugin), 'magenta')
         return line
 
     def show_statistics(self, statistics: Statistics) -> None:
