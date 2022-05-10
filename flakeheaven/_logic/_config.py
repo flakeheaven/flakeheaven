@@ -4,7 +4,6 @@ from typing import Any, Dict
 
 # external
 import toml
-import urllib3
 from flake8.utils import normalize_paths
 
 
@@ -29,6 +28,7 @@ def _read_local(path: Path) -> Dict[str, Any]:
 
 
 def _read_remote(url: str) -> Dict[str, Any]:
+    import urllib3
     http = urllib3.PoolManager()
     response = http.request('GET', url)
     return _parse_config(response.data.decode())
