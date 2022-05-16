@@ -4,6 +4,7 @@
 [![python versions](https://img.shields.io/pypi/pyversions/flakeheaven)](https://pypi.org/project/flakeheaven/)
 
 [![version](https://img.shields.io/pypi/v/flakeheaven)](https://pypi.org/project/flakeheaven/)
+[![conda](https://anaconda.org/conda-forge/flakeheaven/badges/version.svg)](https://anaconda.org/conda-forge/flakeheaven)
 [![Downloads](https://img.shields.io/pypi/dm/flakeheaven)](https://pypi.org/project/flakeheaven/)
 
 [![CI](https://github.com/flakeheaven/flakeheaven/actions/workflows/ci.yaml/badge.svg)](https://github.com/flakeheaven/flakeheaven/actions/workflows/ci.yaml)
