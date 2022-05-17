@@ -10,7 +10,10 @@ from flake8.main.application import Application
 from flake8.options.config import ConfigParser, get_local_plugins
 from flake8.plugins.manager import ReportFormatters
 from flake8.utils import parse_unified_diff
-
+try:
+    import pathspec
+except ImportError:
+    pathspec = None
 # app
 from .._constants import DEFAULTS
 from .._logic import read_config
@@ -57,6 +60,11 @@ class FlakeHeavenApplication(Application):
         group.add_argument('--relative', action='store_true',
                            help='Treat file paths as relative to directory containing baseline file')
         group.add_argument('--safe', action='store_true', help='suppress exceptions from plugins')
+        if pathspec:
+            group.add_argument(
+                '--pattern-file-exclude',
+                help='file with .gitignore-like syntax to exclude files from patterns',
+            )
         self._option_manager = manager
 
     def get_toml_config(self, path: Path = None) -> Dict[str, Any]:
@@ -163,6 +171,7 @@ class FlakeHeavenApplication(Application):
             arguments=self.args,
             checker_plugins=self.check_plugins,
             relative=self.options.relative,
+            pattern_file_exclude=getattr(self.options, 'pattern_file_exclude', None),
         )
 
     def find_plugins(self, config_finder) -> None:

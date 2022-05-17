@@ -41,13 +41,26 @@ class FlakeHeavenCheckersManager(Manager):
     Patched flake8.checker.Manager to provide `plugins` support
     """
 
-    def __init__(self, baseline: Optional[str], **kwargs):
+    def __init__(
+        self,
+        baseline: Optional[str],
+        pattern_file_exclude:Optional[str] = None,
+        **kwargs):
         self.baseline = set()
         self.relative = kwargs.pop('relative', False)
         if baseline:
             with open(baseline) as stream:
                 self.baseline = {line.strip() for line in stream}
             self.root_path = Path(baseline).resolve().parent
+
+        if not pattern_file_exclude:
+            self.spec = None
+        else:
+            import pathspec
+            with open(pattern_file_exclude, 'r') as fh:
+                self.spec = pathspec.PathSpec.from_lines(
+                    pathspec.patterns.GitWildMatchPattern, fh.readlines()
+                )
         super().__init__(**kwargs)
 
     def make_checkers(self, paths: List[str] = None) -> None:
@@ -121,6 +134,8 @@ class FlakeHeavenCheckersManager(Manager):
 
         if filename == '-':
             return True
+        if self.spec and self.spec.match_file(filename):
+            return False
         if fnmatch(filename=filename, patterns=self.options.filename):
             return True
 

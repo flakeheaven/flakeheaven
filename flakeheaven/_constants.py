@@ -25,6 +25,7 @@ DEFAULTS = dict(
         'pycodestyle': ['+*'],
     },
     exceptions={},
+    pattern_file_exclude=None,
 
     # disabled by flakeheaven but required by flake8
     extend_exclude=[],
