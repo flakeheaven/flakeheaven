@@ -28,7 +28,7 @@ def _read_local(path: Path) -> Dict[str, Any]:
 
 
 def _read_remote(url: str) -> Dict[str, Any]:
-    import urllib3
+    import urllib3  # isort: skip
     http = urllib3.PoolManager()
     response = http.request('GET', url)
     return _parse_config(response.data.decode())
