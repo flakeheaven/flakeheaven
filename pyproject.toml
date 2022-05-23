@@ -47,14 +47,17 @@ pygments = "*"
 toml = "*"
 urllib3 = "*"
 importlib-metadata = {version = ">=1.0", python = "<3.8"}
-## Documentation
+# Documentation
 alabaster = {version = "*", optional = true}
 pygments-github-lexers = {version = "*", optional = true}
 recommonmark = {version = "*", optional = true}
 sphinx = {version = "*", optional = true}
+# Dev
+commitizen = {version = ">=2.22", optional = true}
 
 [tool.poetry.extras]
 docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
+dev = ["commitizen"]
 
 [tool.poetry.dev-dependencies]
 ## Testing
@@ -147,3 +150,11 @@ import_heading_stdlib = "built-in"
 import_heading_thirdparty = "external"
 import_heading_firstparty = "project"
 import_heading_localfolder = "app"
+
+
+[tool.commitizen]
+version = "0.11.1"
+annotated_tag = true
+update_changelog_on_bump = true
+bump_message = "bump: $current_version → $new_version"  # keep in sync with .github/workflows/bumpversion.yml!!!
+changelog_start_rev = "0.11.0"

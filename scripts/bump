@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -x
+# bump order: commitizen => poetry => git
+
+#  This extra step is required to keep poetry version in sync with commitizen's
+
+cz bump --yes --files-only \
+&& export INCOMING_TAG=`cz version --project` \
+&& git reset --hard \
+\
+&& poetry version $INCOMING_TAG \
+&& cz bump \
+  --yes \
+  --changelog-to-stdout \
+  > incoming-changelog.md \
+\
+&& echo "Bumped to version $INCOMING_TAG"

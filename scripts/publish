@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -x
+
+poetry publish \
+  --build \
+  -u __token__ \
+  -p $PYPI_PASSWORD

@@ -1,0 +1,63 @@
+name: Bump version on push to main
+# See Also:
+#   https://commitizen-tools.github.io/commitizen/tutorials/github_actions/
+#   https://github.com/commitizen-tools/commitizen-action#sample-workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bump-version:
+    name: "Bump version and create changelog with commitizen"
+    runs-on: ubuntu-latest
+
+    # avoid re-triggering on bump commits
+    # NOTE: keep in sync with tool.commitizen.bump_message in pyproject.toml!!!
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.FLAKEHEAVEN_PAT }}"
+          fetch-depth: 0
+
+      - name: Show git config
+        run: |
+          git status
+          git log --oneline -n3
+
+      - name: Configuring git user and email
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Install utils
+        run: |
+          python3 -m pip install \
+            --user \
+            commitizen==2.27.1 \
+            poetry==1.1.4
+
+      - name: "Bump: commit and tag"
+        run: |
+          ./scripts/bump \
+          && export INCOMING_TAG=`cz version --project` \
+          && echo "INCOMING_TAG=${INCOMING_TAG}" >> "$GITHUB_ENV"
+
+      - name: "Bump: Push"
+        run: |
+          export REMOTE_REPO="https://${{ github.actor }}:${{ secrets.FLAKEHEAVEN_PAT }}@github.com/${{ github.repository }}.git" \
+          && export CURRENT_BRANCH="$(git branch --show-current)" \
+          && git pull "$REMOTE_REPO" "$CURRENT_BRANCH" \
+          && git push "$REMOTE_REPO" "HEAD:${CURRENT_BRANCH}" --tags
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: "incoming-changelog.md"
+          tag_name: ${{ env.INCOMING_TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

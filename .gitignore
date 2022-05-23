@@ -8,3 +8,4 @@ docs/build/
 .mypy_cache/
 .pytest_cache/
 .flake8
+.python-version

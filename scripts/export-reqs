@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+mkdir -p requirements
+
+poetry lock --no-interaction --no-update
+
+poetry export --without-hashes -o requirements/requirements.txt
+poetry export --dev --without-hashes -o requirements/requirements.dev.txt
+poetry export --dev -E docs --without-hashes -o requirements/requirements.docs.txt
+poetry export --dev -E dev --without-hashes -o requirements/requirements.dev.txt

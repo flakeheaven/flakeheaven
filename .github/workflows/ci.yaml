@@ -1,9 +1,6 @@
 #.github/workflows/ci.yaml
 name: CI
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -13,6 +10,29 @@ env:
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
 
 jobs:
+
+  conventional-commits:
+    name: "Enforce Conventional Commits compliance"
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install commitizen
+        run: |
+          pip install -U commitizen==2.27.0
+
+      - name: Validate all PR commits since origin/main
+        run: |
+          cz check --rev-range origin/main..HEAD
+
+      - name: Validate all PR commits since PR head
+        run: |
+          cz check --rev-range ${{ github.event.pull_request.head.sha }}..HEAD
+
   default:
     name: "${{ matrix.step.env }} '${{ matrix.step.command }}' (@py${{ matrix.step.python }})"
     runs-on: ubuntu-latest
