@@ -40,6 +40,7 @@ class GitlabFormatter(BaseFormatter):
         result = json.dumps(dict(
             description=text,
             fingerprint=digest,
+            severity='info',
             location={
                 'path': filename,
                 'lines': dict(begin=error.line_number),
