@@ -1,4 +1,5 @@
 # built-in
+from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict
 
@@ -35,16 +36,16 @@ def _read_remote(url: str) -> Dict[str, Any]:
 
 
 def _merge_configs(*configs) -> Dict[str, Any]:
-    config = dict()
+    config = defaultdict(dict)  # type: Dict[str, Any]
     for subconfig in configs:
         config.update(subconfig)
 
     for section in ('plugins', 'exceptions'):
-        config[section] = dict()
         for subconfig in configs:
-            config[section].update(subconfig.get(section, {}))
+            if section in subconfig:
+                config[section].update(subconfig[section])
 
-    return config
+    return dict(config)
 
 
 def _parse_config(content: str) -> Dict[str, Any]:
