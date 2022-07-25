@@ -11,18 +11,24 @@ from flake8.checker import FileChecker
 from flake8.options.manager import OptionManager
 
 
-CACHE_PATH = Path(os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache' / 'flakeheaven'))
+CACHE_PATH = Path(
+    os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache/flakeheaven'),
+)
+
 THRESHOLD = int(os.getenv('FLAKEHEAVEN_CACHE_TIMEOUT', 3600 * 24))  # default is 1 day
 
 
 def prepare_cache(path=CACHE_PATH):
     if not path.exists():
-        path.mkdir(parents=True)
+        path.mkdir(parents=True, exist_ok=True)
         return
     for fpath in path.iterdir():
-        if time() - fpath.stat().st_atime <= THRESHOLD:
-            continue
-        fpath.unlink()
+        try:
+            if time() - fpath.stat().st_atime <= THRESHOLD:
+                continue
+            fpath.unlink()
+        except FileNotFoundError:
+            pass
 
 
 class Snapshot:
@@ -52,8 +58,7 @@ class Snapshot:
         )
 
     def exists(self) -> bool:
-        """Returns True if cache file exists and is actual.
-        """
+        """Returns True if cache file exists and is actual."""
         if self._exists is not None:
             return self._exists
 
@@ -76,8 +81,7 @@ class Snapshot:
 
     @property
     def digest(self) -> Optional[str]:
-        """Get hex digest for the current content of the file
-        """
+        """Get hex digest for the current content of the file"""
         # we cache it because it requested twice: from `exists` and from `dumps`
         if self._digest is None:
             if not self.file_path.exists():
@@ -91,15 +95,13 @@ class Snapshot:
         self.cache_path.write_text(self.dumps(results=results))
 
     def dumps(self, results) -> str:
-        return json.dumps(dict(
-            results=results,
-            digest=self.digest,
-        ))
+        return json.dumps(
+            dict(results=results, digest=self.digest),
+        )
 
     @property
     def results(self):
-        """returns cached checks results for the given file
-        """
+        """returns cached checks results for the given file"""
         # results could be cached from `.exists()`.
         # however, we don't want to cache the results on requets
         # because they are always requested only once

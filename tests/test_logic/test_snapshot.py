@@ -1,13 +1,17 @@
 # built-in
 import importlib
 import os
+from pathlib import Path
+import subprocess as sp
 import time
+from typing import Generator
 
 # external
 import pytest
 
 # project
 import flakeheaven._logic._snapshot
+from flakeheaven._logic._snapshot import prepare_cache, CACHE_PATH
 
 
 @pytest.mark.parametrize(
@@ -67,3 +71,58 @@ def test_prepare_cache_timeout_default(value, threshold, tmp_path, monkeypatch):
 
     for fname in after_names:
         assert (tmp_path / fname).exists()
+
+
+PYPROJECT_TOML = """
+[tool.flakeheaven]
+format = "json"
+max-line-length = 3
+
+[tool.flakeheaven.plugins]
+pycodestyle = ["+E501"]
+"""
+
+PY_CODE = """
+a=0
+'''e501'''
+
+b=5
+'''both errors here'''
+"""
+
+
+PathClass = type(CACHE_PATH)
+
+
+class LiarPath(PathClass):
+    def exists(self) -> bool:
+        return False
+
+
+class RemoverPath(PathClass):
+    def iterdir(self) -> Generator[Path, None, None]:
+        for path in super().iterdir():
+            path.unlink()
+            yield path
+
+
+def test_prepare_cache(monkeypatch, tmp_path: Path):
+    """
+    Test to fix #123 by concurrently keeping/removing cache directories.
+    """
+
+    monkeypatch.chdir(tmp_path)
+
+    # enforce toml config, code and preexisting cache
+    cache_path = tmp_path / 'cache'
+    (tmp_path / 'pyproject.toml').write_text(PYPROJECT_TOML)
+    (tmp_path / 'code.py').write_text(PY_CODE)
+    monkeypatch.setenv('FLAKEHEAVEN_CACHE_TIMEOUT', '0')
+    monkeypatch.setenv('FLAKEHEAVEN_CACHE', str(cache_path))
+
+    sp.run(['flakeheaven', 'lint', 'code.py'])
+
+    importlib.reload(flakeheaven._logic._snapshot)
+
+    prepare_cache(path=LiarPath(cache_path))
+    prepare_cache(path=RemoverPath(cache_path))
