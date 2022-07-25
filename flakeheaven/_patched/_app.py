@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 # external
+from flake8 import _EXTRA_VERBOSE, LOG as FLAKE8_LOG
 from flake8.main.application import Application
 from flake8.options.config import ConfigParser, get_local_plugins
 from flake8.plugins.manager import ReportFormatters
@@ -18,6 +19,8 @@ from ._checkers import FlakeHeavenCheckersManager
 from ._plugins import FlakeHeavenCheckers
 from ._style_guide import FlakeHeavenStyleGuideManager
 
+
+LOG = FLAKE8_LOG.getChild(__name__)
 
 # Options that are related to the flake8 codes management logic.
 # We use our own codes management via `plugins` and `exceptions`.
@@ -40,12 +43,12 @@ class FlakeHeavenApplication(Application):
     + replace CheckersManager to support for `plugins` option
     + register custom formatters
     """
+
     guide: FlakeHeavenStyleGuideManager
 
     @property
     def option_manager(self):
-        """We overload this property only to specify setter.
-        """
+        """We overload this property only to specify setter."""
         return self._option_manager
 
     @option_manager.setter
@@ -89,7 +92,8 @@ class FlakeHeavenApplication(Application):
         return None, argv
 
     def parse_preliminary_options(
-        self, argv: List[str],
+        self,
+        argv: List[str],
     ) -> Tuple[Namespace, List[str]]:
         # if passed `--config` with path to TOML-config, we should extract it
         # before passing into flake8 mechanisms
@@ -108,12 +112,17 @@ class FlakeHeavenApplication(Application):
 
         # make default config
         config, _ = self.option_manager.parse_args([])
+        LOG.log(_EXTRA_VERBOSE, 'CONFIG: initial:```%s```', vars(config))
         config.__dict__.update(DEFAULTS)
+        LOG.log(
+            _EXTRA_VERBOSE, 'CONFIG: after flakeheaven defaults:```%s```', vars(config),
+        )
 
         # patch config wtih TOML
         # If config is explicilty passed, it will be used
         # If config isn't specified, flakeheaven will lookup for it
         config.__dict__.update(self.get_toml_config(self._config_path))
+        LOG.log(_EXTRA_VERBOSE, 'CONFIG: after toml update:```%s```', vars(config))
 
         # Parse CLI options and legacy flake8 configs.
         # Based on `aggregate_options`.
@@ -135,6 +144,7 @@ class FlakeHeavenApplication(Application):
             args=argv,
             values=config,
         )
+        LOG.log(_EXTRA_VERBOSE, 'OPTIONS:  after option manager parsed:```%s```', vars(self.options))
 
         # All this goes from the original `parse_configuration_and_cli`.
         # We can't call `super` anymore because all `Application` methods

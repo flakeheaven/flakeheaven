@@ -48,6 +48,7 @@ FlakeHeaven supports all flake8 plugins, formatters, and configs. However, Flake
     commands/codes
     commands/code
     commands/missed
+    commands/config
 
 .. toctree::
     :maxdepth: 3

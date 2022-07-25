@@ -5,7 +5,11 @@ from typing import Any, Dict
 
 # external
 import toml
+from flake8 import _EXTRA_VERBOSE, LOG as FLAKE8_LOG
 from flake8.utils import normalize_paths
+
+
+LOG = FLAKE8_LOG.getChild(__name__)
 
 
 def read_config(*paths) -> Dict[str, Any]:
@@ -19,7 +23,11 @@ def read_config(*paths) -> Dict[str, Any]:
             new_config = _read_local(Path(path))
         else:
             new_config = _read_remote(path)
+        LOG.log(_EXTRA_VERBOSE, 'CONFIG: incoming from `%s`:```%s```', path, new_config)
         config = _merge_configs(config, new_config)
+        LOG.log(
+            _EXTRA_VERBOSE, 'CONFIG: after merging from `%s`:```%s```', path, config,
+        )
     return config
 
 
