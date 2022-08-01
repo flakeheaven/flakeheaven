@@ -1,7 +1,7 @@
 # built-in
 from ast import AST
 from tokenize import TokenInfo
-from typing import Sequence
+from typing import Sequence, TypeVar
 
 
 try:
@@ -12,37 +12,35 @@ try:
 except ImportError:
     version = '0.0.0'
     Run = None
-    BaseReporter = object
+    BaseReporter = type
 
 
 STDIN = 'stdin'
 
 
 class Reporter(BaseReporter):
-    def __init__(self):
-        self.errors = []
-        super().__init__()
-
-    def _display(self, layout):
+    def _display(self, layout) -> None:
         pass
 
-    def handle_message(self, msg):
-        # ignore `invalid syntax` messages, it is already checked by `pycodestyle`
-        if msg.msg_id == 'E0001':
-            return
-        self.errors.append(dict(
-            row=msg.line,
-            col=msg.column,
-            text='{} {} ({})'.format(msg.msg_id, msg.msg or '', msg.symbol),
-            code=msg.msg_id,
-        ))
+
+P = TypeVar('P', bound='PyLintChecker')
 
 
 class PyLintChecker:
     name = 'pylint'
     version = version
+    max_line_length: int
 
-    def __init__(self, tree: AST, file_tokens: Sequence[TokenInfo], filename: str = STDIN) -> None:
+    @classmethod
+    def parse_options(cls, options) -> None:
+        cls.max_line_length = options.max_line_length
+
+    def __init__(
+        self,
+        tree: AST,
+        file_tokens: Sequence[TokenInfo],
+        filename: str = STDIN,
+    ) -> None:
         self.tree = tree
         self.filename = filename
         self.file_tokens = file_tokens
@@ -52,7 +50,13 @@ class PyLintChecker:
         if Run is None:
             return
 
+        args = [self.filename, f'--max-line-length={self.max_line_length}']
         reporter = Reporter()
-        Run([self.filename], reporter=reporter, do_exit=False)
-        for error in reporter.errors:
-            yield error['row'], error['col'], error['text'], type(self)
+        Run(args, reporter=reporter, exit=False)
+        for error in reporter.messages:
+            yield (
+                error.line,
+                error.column,
+                f'{error.msg_id} {error.msg or ""} ({error.symbol})',
+                type(self),
+            )
