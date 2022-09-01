@@ -24,7 +24,7 @@ It's a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
 
 ## Compatibility
 
-FlakeHeaven supports all flake8 plugins, formatters, and configs. However, FlakeHeaven has it's own beautiful way to configure enabled plugins and codes. So, options like `--ignore` and `--select` unsupported. You can have flake8 and FlakeHeaven in one project if you want but enabled plugins should be explicitly specified.
+FlakeHeaven supports all flake8 plugins, formatters, and configs. However, FlakeHeaven has its own beautiful way to configure enabled plugins and codes. So, options like `--ignore` and `--select` are disabled. You can have flake8 and FlakeHeaven in one project if you want but enabled plugins should be explicitly specified.
 
 ```{eval-rst}
 .. toctree::
