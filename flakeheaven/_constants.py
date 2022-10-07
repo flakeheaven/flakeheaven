@@ -44,7 +44,7 @@ class ExitCode(IntEnum):
     NO_COMMAND = 1
     INVALID_COMMAND = 2
 
-    # `installed` command
+    # `installed`, `missing` command
     NO_PLUGINS_INSTALLED = 11
 
     # `show` command
@@ -52,8 +52,12 @@ class ExitCode(IntEnum):
     IMPORT_ERROR = 22
     NO_CODES = 23
 
+    # shared for commands
     TOO_MANY_ARGS = 31
     NOT_ENOUGH_ARGS = 32
+
+    # `missing` command
+    PLUGINS_MISSING = 41
 
 
 # If a plugin isn't there, it still should be supported.

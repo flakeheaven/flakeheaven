@@ -1,6 +1,6 @@
 # app
 from .._constants import NAME, VERSION, ExitCode
-from .._logic import get_installed, get_plugin_rules
+from .._logic._discover import NoPlugins, get_missing
 from .._patched import FlakeHeavenApplication
 from .._types import CommandResult
 
@@ -15,20 +15,12 @@ def missed_command(argv) -> CommandResult:
         return ExitCode.TOO_MANY_ARGS, 'the command does not accept arguments'
 
     app = FlakeHeavenApplication(program=NAME, version=VERSION)
-    installed_plugins = sorted(get_installed(app=app), key=lambda p: p['name'])
-    if not installed_plugins:
+    try:
+        missing = get_missing(app)
+    except NoPlugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'
 
-    count = 0
-    for pattern in app.options.plugins:
-        for plugin in installed_plugins:
-            rules = get_plugin_rules(
-                plugin_name=plugin['name'],
-                plugins={pattern: ['+*']},
-            )
-            if rules:
-                break
-        else:
-            print(pattern)
-            count += 1
-    return count, ''
+    for pattern in missing:
+        print(pattern)
+
+    return ExitCode.PLUGINS_MISSING, ''

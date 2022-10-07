@@ -1,10 +1,10 @@
 # built-in
 import re
 from collections import defaultdict
-from typing import Any, Dict, Iterable, Iterator
+from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 # app
-from ._plugin import get_plugin_name
+from ._plugin import get_plugin_name, get_plugin_rules
 
 
 REX_CODE = re.compile(r'^[A-Z]{1,9}[0-9]{0,5}$')
@@ -23,11 +23,21 @@ ALIASES = {
 }
 
 
-def get_installed(app) -> Iterator[Dict[str, Any]]:
+class NoPlugins(Exception):
+    """No plugins are installed and found."""
+
+
+def get_installed(
+    app,
+    *,
+    initialize: bool = True,
+    initialize_args: Optional[List[str]] = None,
+) -> Iterator[Dict[str, Any]]:
     plugins_codes = defaultdict(list)
     versions = dict()
 
-    app.initialize([])
+    if initialize:
+        app.initialize(initialize_args or [])
     codes: Iterable[str]
 
     for check_type in ('ast_plugins', 'logical_line_plugins', 'physical_line_plugins'):
@@ -57,3 +67,30 @@ def get_installed(app) -> Iterator[Dict[str, Any]]:
             codes=sorted(codes),
             version=versions[name],
         )
+
+
+def get_missing(
+    app,
+    *,
+    initialize: bool = True,
+    initialize_args: Optional[List[str]] = None,
+):
+    installed_plugins = sorted(
+        get_installed(app=app, initialize=initialize, initialize_args=initialize_args),
+        key=lambda p: p['name'],
+    )
+    if not installed_plugins:
+        raise NoPlugins('No plugins installed')
+
+    patterns = []
+    for pattern in app.options.plugins:
+        for plugin in installed_plugins:
+            rules = get_plugin_rules(
+                plugin_name=plugin['name'],
+                plugins={pattern: ['+*']},
+            )
+            if rules:
+                break
+        else:
+            patterns.append(pattern)
+    return patterns

@@ -14,8 +14,9 @@ from flake8.plugins.manager import ReportFormatters
 from flake8.utils import parse_unified_diff
 
 # app
-from .._constants import DEFAULTS
+from .._constants import DEFAULTS, ExitCode
 from .._logic import read_config
+from .._logic._discover import NoPlugins, get_missing
 from ._checkers import FlakeHeavenCheckersManager
 from ._plugins import FlakeHeavenCheckers
 from ._style_guide import FlakeHeavenStyleGuideManager
@@ -61,6 +62,8 @@ class FlakeHeavenApplication(Application):
         group.add_argument('--relative', action='store_true',
                            help='Treat file paths as relative to directory containing baseline file')
         group.add_argument('--safe', action='store_true', help='suppress exceptions from plugins')
+        group.add_argument('--error-on-missing', action='store_true',
+                           help='Error before linting if there are missing plugins')
         self._option_manager = manager
 
     def get_toml_config(
@@ -227,6 +230,22 @@ class FlakeHeavenApplication(Application):
         self.formatting_plugins = ReportFormatters(local_plugins.report)
         self.check_plugins.load_plugins()
         self.formatting_plugins.load_plugins()
+
+    def run_checks(self):
+        try:
+            missing = get_missing(self, initialize=False)
+        except NoPlugins as exc:
+            if self.options.error_on_missing:
+                raise
+            else:
+                print(exc, category=NoPlugins)
+        else:
+            if missing:
+                msg = '\n'.join(missing)
+                print(f'Missing plugins: \n{msg}')
+                if self.options.error_on_missing:
+                    sys.exit(ExitCode.PLUGINS_MISSING)
+        super().run_checks()
 
     def make_formatter(self, *args, **kwargs) -> None:
         if self.formatter is None:
