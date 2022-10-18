@@ -1,3 +1,8 @@
+# built-in
+import tempfile
+from pathlib import Path
+from textwrap import dedent
+
 # external
 import pytest
 
@@ -43,3 +48,35 @@ def test_merge_config_empty_dicts():
     merged_config = _config._merge_configs({}, {})
 
     assert merged_config == {}
+
+
+@pytest.fixture(params=[True, False])
+def tmp_toml(request):
+    txt = dedent("""
+        [tool.flakeheaven]
+        base = 'pyproject.toml'
+        """)
+    if request.param:
+        # Create in $HOME, return as ~/...
+        _cache = '.cache/flakeheaven'
+        tmp = Path.home() / _cache
+        tmp.mkdir(exist_ok=True, parents=True)
+        with tempfile.TemporaryDirectory(dir=tmp) as tmp:
+            (Path(tmp) / 'pyproject.toml').write_text(txt)
+            yield '~/' + _cache + '/' + Path(tmp).name + '/pyproject.toml'
+    else:
+        # Regular tmp dir (abs path)
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / 'pyproject.toml').write_text(txt)
+            yield tmp + '/pyproject.toml'
+
+
+def test_read_config_expanduser(tmp_toml):
+    # Read -- seeing `base` it will go and read that path too, and merge.
+    config = _config.read_config(tmp_toml)
+
+    # Define target
+    target = _config.read_config('./pyproject.toml')
+    target['base'] = 'pyproject.toml'
+
+    assert config == target

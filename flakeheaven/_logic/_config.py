@@ -20,8 +20,8 @@ def read_config(*paths) -> Dict[str, Any]:
             new_config = _read_local(path)
         elif path.startswith(('https://', 'http://')):
             new_config = _read_remote(path)
-        elif Path(path).exists():
-            new_config = _read_local(Path(path))
+        elif Path(path).expanduser().exists():
+            new_config = _read_local(Path(path).expanduser())
         else:
             new_config = _read_remote(path)
         LOG.log(_EXTRA_VERBOSE, 'CONFIG: incoming from `%s`:```%s```', path, new_config)
