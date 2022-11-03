@@ -140,11 +140,15 @@ class FlakeHeavenCheckersManager(Manager):
             exceptions=self.options.exceptions,
         )
         if exceptions:
-            rules = rules.copy()
-            rules += get_plugin_rules(
+            exception_rules = get_plugin_rules(
                 plugin_name=plugin_name,
                 plugins=exceptions,
             )
+            if '-*' in exception_rules:
+                rules = exception_rules
+            else:
+                rules = rules.copy()
+                rules += exception_rules
         return rules
 
     def is_path_excluded(self, filename: str) -> bool:
