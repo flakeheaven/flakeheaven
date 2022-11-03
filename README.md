@@ -11,7 +11,7 @@
 [![Docs](https://readthedocs.org/projects/flakeheaven/badge/?version=latest)](https://flakeheaven.readthedocs.io/en/latest/)
 
 
-FlakeHeaven is a [Flake8](https://gitlab.com/pycqa/flake8) wrapper to make it cool.
+flakeheaven is a python linter built around flake8 to enable inheritable and complex toml configuration.
 
 This project is a fork of [FlakeHell](https://github.com/life4/flakehell). FlakeHell and other forks of it such as
 flakehell/flakehell are [no longer maintained](https://github.com/flakehell/flakehell/issues/25) and do not work with Flake8 4.0.x.
