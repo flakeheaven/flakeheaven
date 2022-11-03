@@ -5,26 +5,6 @@ from collections import defaultdict
 # external
 import pytest
 
-# app
-from flakeheaven._constants import NAME, VERSION
-from flakeheaven._patched import FlakeHeavenApplication
-
-
-@pytest.fixture
-def initialized_app(request, tmp_path):
-    toml_config, py_code = request.param
-
-    toml_config_file = tmp_path / 'test_config.toml'
-    toml_config_file.write_text(toml_config)
-
-    python_lintee = tmp_path / 'code.py'
-    python_lintee.write_text(py_code)
-
-    app = FlakeHeavenApplication(program=NAME, version=VERSION)
-    app.initialize([f'--config={toml_config_file}', str(python_lintee)])
-
-    yield app
-
 
 MAX_LINE_LENGTH = 4
 
