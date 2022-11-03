@@ -116,11 +116,11 @@ def test_prepare_cache(monkeypatch, tmp_path: Path):
     # enforce toml config, code and preexisting cache
     cache_path = tmp_path / 'cache'
     (tmp_path / 'pyproject.toml').write_text(PYPROJECT_TOML)
-    (tmp_path / 'code.py').write_text(PY_CODE)
+    (tmp_path / 'testcode.py').write_text(PY_CODE)
     monkeypatch.setenv('FLAKEHEAVEN_CACHE_TIMEOUT', '0')
     monkeypatch.setenv('FLAKEHEAVEN_CACHE', str(cache_path))
 
-    sp.run(['flakeheaven', 'lint', 'code.py'])
+    sp.run(['flakeheaven', 'lint', 'testcode.py'])
 
     importlib.reload(flakeheaven._logic._snapshot)
 
