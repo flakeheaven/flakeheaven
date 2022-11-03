@@ -1,11 +1,11 @@
 # built-in
-from collections import defaultdict
 import json
+from collections import defaultdict
 
 # external
 import pytest
-import flakeheaven._patched._checkers as checkers
-# app
+
+# project
 from flakeheaven._constants import NAME, VERSION, ExitCode
 from flakeheaven._patched import FlakeHeavenApplication
 

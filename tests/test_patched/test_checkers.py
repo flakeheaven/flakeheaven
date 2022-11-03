@@ -1,6 +1,9 @@
 # built-in
 from unittest import mock
 
+# external
+import pytest
+
 # project
 from flakeheaven._patched._checkers import FlakeHeavenFileChecker
 

@@ -1,14 +1,15 @@
 # built-in
+import subprocess as sp
 from pathlib import Path
 from shlex import split
-import subprocess as sp
 from typing import Optional
 
 # external
 import pytest
 
-# app
+# project
 from flakeheaven.commands._config import get_config
+
 
 HELP = """\
 usage: flakeheaven [-h] [--plugins-only] [--flake8-logs] [-v]

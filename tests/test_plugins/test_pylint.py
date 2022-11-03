@@ -1,6 +1,6 @@
 # built-in
-from collections import defaultdict
 import json
+from collections import defaultdict
 
 # external
 import pytest

@@ -1,9 +1,10 @@
 # built-in
 from pathlib import Path
 
-# project
+# external
 import pytest
 
+# project
 from flakeheaven._logic import get_exceptions
 
 

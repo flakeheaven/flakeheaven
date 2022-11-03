@@ -1,9 +1,9 @@
 # built-in
 import importlib
 import os
-from pathlib import Path
 import subprocess as sp
 import time
+from pathlib import Path
 from typing import Generator
 
 # external
@@ -11,7 +11,7 @@ import pytest
 
 # project
 import flakeheaven._logic._snapshot
-from flakeheaven._logic._snapshot import prepare_cache, CACHE_PATH
+from flakeheaven._logic._snapshot import CACHE_PATH, prepare_cache
 
 
 @pytest.mark.parametrize(
