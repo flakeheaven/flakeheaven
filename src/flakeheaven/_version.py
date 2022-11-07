@@ -1,9 +1,3 @@
-try:
-    # built-in
-    from importlib import metadata
-except ImportError:
-    # Running on pre-3.8 Python; use importlib-metadata package
-    # external
-    import importlib_metadata as metadata  # type: ignore
+# Do not modify this file directly - it is updated automatically on bumps
 
-__version__ = metadata.version('flakeheaven')
+__version__ = "3.2.1"
