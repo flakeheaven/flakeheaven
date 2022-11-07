@@ -13,7 +13,7 @@ from flakeheaven import __version__
 
 _docs_dir = Path(__file__).parent.resolve()
 _root_dir = _docs_dir.parent
-_package = _root_dir / 'flakeheaven'
+_package = _root_dir / 'src/flakeheaven'
 _templates = _docs_dir / 'templates'
 _apidoc_dst = _docs_dir / 'apidoc'
 

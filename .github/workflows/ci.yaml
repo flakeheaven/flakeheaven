@@ -44,10 +44,10 @@ jobs:
           {env: "pytest", python: "3.8", extras: "", command: "pytest tests/"},
           {env: "pytest", python: "3.9", extras: "", command: "pytest tests/"},
           {env: "main", python: "3.8", extras: "", command: "flakeheaven lint"},
-          {env: "typing", python: "3.8", extras: "", command: "mypy --ignore-missing-imports --allow-redefinition flakeheaven/ > /dev/null || yes | mypy --install-types && mypy --ignore-missing-imports --allow-redefinition flakeheaven/"},
+          {env: "typing", python: "3.8", extras: "", command: "mypy --ignore-missing-imports --allow-redefinition src/ > /dev/null || yes | mypy --install-types && mypy --ignore-missing-imports --allow-redefinition src/"},
           # additional
           {env: "docs", python: "3.8", extras: "-E docs", command: "./scripts/docs-build"},
-          {env: "isort", python: "3.8", extras: "", command: "isort --check flakeheaven"},
+          {env: "isort", python: "3.8", extras: "", command: "isort --check src"},
         ]
     container:
       image: python:${{ matrix.step.python }}-bullseye

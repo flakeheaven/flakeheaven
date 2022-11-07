@@ -7,6 +7,9 @@ repository = "https://github.com/flakeheaven/flakeheaven"
 homepage = "https://github.com/flakeheaven/flakeheaven"
 documentation = "https://flakeheaven.readthedocs.io/"
 readme = "README.md"
+packages = [
+    { include = "flakeheaven", from = "src" },
+]
 license = "MIT"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
