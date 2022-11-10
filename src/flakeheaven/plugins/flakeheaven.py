@@ -1,38 +1,52 @@
 # built-in
-from ast import AST
+import json
 from ast import literal_eval
-from tokenize import TokenInfo
-from typing import Sequence, TypeVar
+
+from flake8.options.manager import OptionManager
 
 from flakeheaven import __version__
 from flakeheaven._constants import DEFAULTS
-# from flakeheaven.compat.base import get_toml_config
+from flakeheaven.compat.base import select_provider
 
-
-def override_defaults(option_manager):
+def set_flakeheaven_defaults(option_manager:OptionManager):
+    option_manager.parser.set_defaults(**DEFAULTS)
+    # TODO: are following lines actually necessary?
+    
+    # <pwoolvett 2022-11-10T18:05:28 >
     for k, v in DEFAULTS.items():
-        try:
-            option_manager.config_options_dict[k].default = v
-        except KeyError as exc:
-            print(exc)
+        option = option_manager.config_options_dict[k]
+        option.default = v
+        option.option_kwargs['default'] = v
 
+def add_flakeheaven_options(option_manager:OptionManager):
 
-def add_flakeheaven_options(option_manager):
-
+    provider = select_provider()
     common = {
         "parse_from_config": True,
     }
 
+    k0 = provider.FlakeHeavenApplication.get_option_manager_keys(option_manager)
+
     def add_option(*a, **kw):
         option_manager.add_option(*a, **common, **kw)
 
-    add_option("--baseline", nargs="*", help="path to baseline")
+    add_option(
+        "--baseline",
+        nargs="*",
+        help="path to baseline",
+        default=None,
+    )
     add_option(
         "--relative",
         action="store_true",
         help="Treat file paths as relative to directory containing baseline file",
     )
-    add_option("--safe", action="store_true", help="suppress exceptions from plugins")
+    add_option(
+        "--safe",
+        action="store_true",
+        help="suppress exceptions from plugins",
+        default=False,
+    )
     add_option(
         "--error-on-missing",
         action="store_true",
@@ -40,61 +54,42 @@ def add_flakeheaven_options(option_manager):
     )
     add_option(
         "--plugins",
-        nargs="*",
-        help="suppress exceptions from plugins",
+        help="flake8 plugin name to and associated rules dict.",
+        default={
+            'pyflakes': ['+*'],
+            'pycodestyle': ['+*'],
+        },
+        type=literal_eval,
     )
     add_option(
         "--exceptions",
         nargs="*",
-        help="suppress exceptions from plugins",
+        help="per-file (or fnmatch glob) plugin rule exception",
+        default={},
+        type=literal_eval,
     )
     add_option(
         "--base",
         nargs="*",
-        help="suppress exceptions from plugins",
+        help="Upstream flakeheaven configuration. Can be local or remote.",
+        default=None,
     )
 
-
-# def enforce_defaults_from_toml():
-#     ...
-
-
-# class FlakeheavenToml:
-#     def __init__(self):
-#         self.config = None
-#         self._data = None
-
-#     @property
-#     def data(self):
-#         if not self._data:
-#             self._data = get_toml_config(
-#                 Path(self.config) if self.config is not None else self.config,
-#             )
-#         return self._data
-
+    k1 = provider.FlakeHeavenApplication.get_option_manager_keys(option_manager)
+    new_keys = k1-k0
+    return new_keys
 
 class Flakeheaven:
     # name and version are required for flake8<5
     name = "flakeheaven"
     version = __version__
+    _f8_keys: set
 
     @classmethod
-    def add_options(cls, option_manager) -> None:
-        add_flakeheaven_options(option_manager)
-        override_defaults(option_manager)
+    def add_options(cls, option_manager: OptionManager) -> None:
+        cls._f8_keys = add_flakeheaven_options(option_manager)
+        set_flakeheaven_defaults(option_manager)
 
-        # cls.fh_toml = FlakeheavenToml()
-        # bkp = option_manager.parser.set_defaults
-        # def set_defaults(*args, **kwargs):
-        #     breakpoint();print()  # TODO remove this
-        #     bkp(**kwargs)
-        # option_manager.parser.set_defaults = set_defaults
-
-        # from flakeheaven.compat import flake8
-        # Namespace(**vars(args1), **vars(args2))
-        # option_manager.parser.set_defaults = bkp()
-        # breakpoint()
-        # print()  # TODO remove this
 
     @classmethod
     def parse_options(cls, option_manager, options, args) -> None:
@@ -104,6 +99,7 @@ class Flakeheaven:
             "exceptions",
             "base",
         )
+        require_eval = cls._f8_keys
         for opt in require_eval:
             stringified = getattr(options, opt)
             if stringified is None:

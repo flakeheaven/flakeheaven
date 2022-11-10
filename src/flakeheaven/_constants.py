@@ -9,7 +9,6 @@ from flakeheaven._version import __version__
 NAME = 'flakeheaven'
 VERSION = __version__
 
-
 # our own modern defaults
 DEFAULTS = dict(
     # redefined defaults
@@ -18,22 +17,22 @@ DEFAULTS = dict(
     max_line_length=90,
 
     # flakeheaven options
-    baseline=None,
-    safe=False,
-    plugins={
-        'pyflakes': ['+*'],
-        'pycodestyle': ['+*'],
-    },
-    exceptions={},
+    # baseline=None,
+    # safe=False,
+    # plugins={
+    #     'pyflakes': ['+*'],
+    #     'pycodestyle': ['+*'],
+    # },
+    # exceptions={},
 
     # disabled by flakeheaven but required by flake8
-    extend_exclude=[],
-    ignore=[],
-    extend_ignore=[],
-    select=[],
-    enable_extensions=[],
-    per_file_ignores=[],
-    statistics=False,
+    # extend_exclude=[],
+    # ignore=[],
+    # extend_ignore=[],
+    # select=[],
+    # enable_extensions=[],
+    # per_file_ignores=[],
+    # statistics=False,
 )
 
 

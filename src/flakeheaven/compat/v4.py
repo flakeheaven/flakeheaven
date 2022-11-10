@@ -8,16 +8,19 @@ import configparser
 from typing import Any, Iterator
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config
+
 # from flake8.options import aggregator
-# from flake8.options.manager import OptionManager
+from flake8.options.manager import OptionManager
 
 from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 from flakeheaven.compat.base import TomlAndRawConfigParser
+
 # app
 from flakeheaven.logic._plugin import get_plugin_name, get_plugin_rules
 
 from flakeheaven.compat.base import ALIASES
 from flakeheaven.compat.base import REX_CODE
+
 # from flakeheaven.logic._config import read_config
 
 
@@ -98,8 +101,11 @@ class FlakeHeavenApplication(FlakeHeavenApplicationInterface, Application):
     def before_initialize(self, args: list[str]) -> list[str]:
         return args
 
+    @staticmethod
+    def get_option_manager_keys(option_manager: OptionManager) -> set:
+        return vars(option_manager.parse_args([])[0]).keys()
+
 
 __all__ = [
-    "__version__",
     "FlakeHeavenApplication",
 ]

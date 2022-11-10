@@ -7,7 +7,8 @@ from flakeheaven.logic._plugin import get_plugin_rules
 
 from rich.table import Table
 
-from flakeheaven.cli.base import Flake8ContextParent
+from flakeheaven.cli.base import Flake8Context
+from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 
 def yield_plugins(app, plugins) -> Iterator[Tuple[str, str, str, list[str]]]:
     visited = set()
@@ -32,11 +33,14 @@ def color_rules(rules:list[str]):
         for rule in rules
     ]
 
+
+
+
 def get_plugins(
-    ctx: Flake8ContextParent,
+    app: FlakeHeavenApplicationInterface,
+    redir,
 ):
     """Show all installed plugins, their codes prefix, and matched rules from config."""
-    app = ctx.flake8_app
 
     plugins = sorted(app.get_installed(), key=lambda p: p['name'])
     if not plugins:
@@ -59,5 +63,11 @@ def get_plugins(
             ', '.join(codes),
             ', '.join(colored_rules),
         )
-    print(table)
-    return ExitCode.OK, ''
+    with redir:
+        print(table)
+
+def command(
+    ctx: Flake8Context,
+):
+    """Show all installed plugins, their codes prefix, and matched rules from config."""
+    return get_plugins(ctx.flake8_app, ctx.output_redir)
