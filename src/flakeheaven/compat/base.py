@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import abc
+import configparser
 import re
 from types import ModuleType
 from typing import (
@@ -26,7 +27,7 @@ from flake8 import __version_info__
 from flake8.main.application import Application
 from flake8.options.manager import Option
 
-from flakeheaven.logic._config import read_config
+from flakeheaven.logic._config import _parse_config
 
 
 COMPAT_PKG = Path(__file__).parent
@@ -47,58 +48,58 @@ ALIASES = {
 }
 
 
-def get_toml_config(
-    path: Optional[Path] = None,
-    *,
-    enforce_keys_from: Dict[str, Option] | None = None,
-) -> Dict[str, Any]:
-    """Extract config from TOML.
+# def get_toml_config(
+#     path: Optional[Path] = None,
+#     *,
+#     enforce_keys_from: Dict[str, Option] | None = None,
+# ) -> Dict[str, Any]:
+#     """Extract config from TOML.
 
-    Args:
-        path: toml filepath. If not set, searches in cwd parents.
-        enforce_keys_from: Mapping of configuration option names to
-         :class:`~flake8.options.manager.Option` instances. It is
-         used to convert ``dashed-names`` in `toml` to
-         :class:`~flake8.options.config.ConfigParser` namespace so
-         it can be updated via its ``__dict__``. Typically, it comes
-         from either
-         :attr:`~flake8.options.config.ConfigParser.config_options`,
-         or directly from
-         :attr:`~flake8.options.manager.OptionManager.config_options_dict`.
-    """
-    if path is not None:
-        toml_config = read_config(path)
-    else:
-        # lookup for config from current dir up to root
-        root = Path().resolve()
-        for dir_path in chain([root], root.parents):
-            path = dir_path / "pyproject.toml"
-            if path.exists():
-                toml_config = read_config(path)
-                break
-        else:
-            toml_config = {}
+#     Args:
+#         path: toml filepath. If not set, searches in cwd parents.
+#         enforce_keys_from: Mapping of configuration option names to
+#          :class:`~flake8.options.manager.Option` instances. It is
+#          used to convert ``dashed-names`` in `toml` to
+#          :class:`~flake8.options.config.ConfigParser` namespace so
+#          it can be updated via its ``__dict__``. Typically, it comes
+#          from either
+#          :attr:`~flake8.options.config.ConfigParser.config_options`,
+#          or directly from
+#          :attr:`~flake8.options.manager.OptionManager.config_options_dict`.
+#     """
+#     if path is not None:
+#         toml_config = read_config(path)
+#     else:
+#         # lookup for config from current dir up to root
+#         root = Path().resolve()
+#         for dir_path in chain([root], root.parents):
+#             path = dir_path / "pyproject.toml"
+#             if path.exists():
+#                 toml_config = read_config(path)
+#                 break
+#         else:
+#             toml_config = {}
 
-    if not enforce_keys_from:
-        return toml_config
+#     if not enforce_keys_from:
+#         return toml_config
 
-    for name in list(toml_config.keys()):
-        try:
-            option = enforce_keys_from[name]
-            dst = option.config_name
-            if dst == name:
-                continue
-            if dst is None:
-                raise ValueError(
-                    f"Unable to parse `{path}`. "
-                    f"Reason: option {option}.config_name not set. "
-                    f"Maybe its not enabled as `parse_from_config`?"  # noqa: C812
-                )
-        except KeyError:
-            continue
+#     for name in list(toml_config.keys()):
+#         try:
+#             option = enforce_keys_from[name]
+#             dst = option.config_name
+#             if dst == name:
+#                 continue
+#             if dst is None:
+#                 raise ValueError(
+#                     f"Unable to parse `{path}`. "
+#                     f"Reason: option {option}.config_name not set. "
+#                     f"Maybe its not enabled as `parse_from_config`?"  # noqa: C812
+#                 )
+#         except KeyError:
+#             continue
 
-        toml_config[dst] = toml_config.pop(name)
-    return toml_config
+#         toml_config[dst] = toml_config.pop(name)
+#     return toml_config
 
 
 def extract_toml_config_path(argv: List[str]) -> Tuple[Optional[Path], List[str]]:
@@ -121,6 +122,17 @@ def extract_toml_config_path(argv: List[str]) -> Tuple[Optional[Path], List[str]
     return None, argv
 
 
+class TomlAndRawConfigParser(configparser.RawConfigParser):
+    def _read(self, fp, fpname):
+        path = Path(fpname)
+        if path.suffix != ".toml":
+            return super()._read(fp, fpname)
+
+        toml_config = {"flake8": _parse_config(fp.read())}
+
+        self.read_dict(toml_config, fpname)
+
+
 class FlakeHeavenApplicationInterface(abc.ABC, Application):
     initialized: bool = False
 
@@ -134,14 +146,15 @@ class FlakeHeavenApplicationInterface(abc.ABC, Application):
             super().initialize(args)
             self.initialized = True
 
-    def parse_preliminary_options(
-        self,
-        argv: List[str],
-    ) -> Tuple[argparse.Namespace, List[str]]:
-        # if passed `--config` with path to TOML-config, we should extract it
-        # before passing into flake8 mechanisms
-        self._toml_config_path, argv = extract_toml_config_path(argv=argv)
-        return super().parse_preliminary_options(argv)
+    # def parse_preliminary_options(
+    #     self,
+    #     argv: List[str],
+    # ) -> Tuple[argparse.Namespace, List[str]]:
+    #     # if passed `--config` with path to TOML-config, we should extract it
+    #     # before passing into flake8 mechanisms
+    #     self._toml_config_path, argv = extract_toml_config_path(argv=argv)
+    #     breakpoint();print()  # TODO remove this
+    #     return super().parse_preliminary_options(argv)
 
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)

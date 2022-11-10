@@ -8,14 +8,17 @@ from pathlib import Path
 from flake8 import LOG
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config
-from flake8.options import aggregator
+
+# from flake8.options import aggregator
 
 from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 from flakeheaven.compat.base import REX_CODE
 from flakeheaven.compat.base import ALIASES
-from flakeheaven.compat.base import get_toml_config
-from flake8.options.manager import OptionManager
-from flakeheaven.logic._config import read_config
+from flakeheaven.compat.base import TomlAndRawConfigParser
+
+# from flakeheaven.compat.base import get_toml_config
+# from flake8.options.manager import OptionManager
+# from flakeheaven.logic._config import read_config
 
 
 # def load_config(
@@ -86,47 +89,35 @@ from flakeheaven.logic._config import read_config
 #     ...
 
 
-def parse_args(
-    self: OptionManager,
-    args: Optional[List[str]] = None,
-    values: Optional[argparse.Namespace] = None,
-) -> Tuple[argparse.Namespace, List[str]]:
-    """Proxy to calling the OptionParser's parse_args method."""
-    self.generate_epilog()
-    self.update_version_string()
-    if values:
-        self.parser.set_defaults(**vars(values))
-    parsed_args = self.parser.parse_args(args)
-    # TODO: refactor callers to not need this
-    return parsed_args, parsed_args.filenames
+# def parse_args(
+#     self: OptionManager,
+#     args: Optional[List[str]] = None,
+#     values: Optional[argparse.Namespace] = None,
+# ) -> Tuple[argparse.Namespace, List[str]]:
+#     """Proxy to calling the OptionParser's parse_args method."""
+#     self.generate_epilog()
+#     self.update_version_string()
+#     if values:
+#         self.parser.set_defaults(**vars(values))
+#     parsed_args = self.parser.parse_args(args)
+#     # TODO: refactor callers to not need this
+#     return parsed_args, parsed_args.filenames
 
 
-
-class TomlAndRawConfigParser(configparser.RawConfigParser):
-    def _read(self, fp, fpname):
-        path = Path(fpname)
-        if path.suffix != ".toml":
-            return super()._read(fp, fpname)
-
-        toml_config = {"flake8": read_config(path)}
-
-        self.read_dict(toml_config, fpname)
-
-def load_config2(
+def load_config(
     config: Optional[str],
     *a,
     **kw,
 ):
     config = "pyproject.toml" if config is None else config
-    return f8_opts_config._legacy_load_config(
-        config, *a, **kw
-    )
+    return f8_opts_config._legacy_load_config(config, *a, **kw)
+
 
 def patch_config_module2():
     f8_opts_config.configparser.RawConfigParser = TomlAndRawConfigParser
 
     f8_opts_config._legacy_load_config = f8_opts_config.load_config
-    f8_opts_config.load_config = load_config2
+    f8_opts_config.load_config = load_config
 
 
 class FlakeHeavenApplication(FlakeHeavenApplicationInterface, Application):

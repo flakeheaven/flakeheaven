@@ -6,7 +6,7 @@ from typing import Sequence, TypeVar
 
 from flakeheaven import __version__
 from flakeheaven._constants import DEFAULTS
-from flakeheaven.compat.base import get_toml_config
+# from flakeheaven.compat.base import get_toml_config
 
 
 def override_defaults(option_manager):

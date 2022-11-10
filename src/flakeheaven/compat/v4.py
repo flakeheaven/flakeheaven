@@ -5,20 +5,20 @@ from collections import defaultdict
 from pathlib import Path
 import re
 import configparser
-from typing import Any, Iterator, List, Optional
+from typing import Any, Iterator
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config
-from flake8.options import aggregator
-from flake8.options.manager import OptionManager
+# from flake8.options import aggregator
+# from flake8.options.manager import OptionManager
 
-from flakeheaven.compat.base import FlakeHeavenApplicationInterface, get_toml_config
-
+from flakeheaven.compat.base import FlakeHeavenApplicationInterface
+from flakeheaven.compat.base import TomlAndRawConfigParser
 # app
 from flakeheaven.logic._plugin import get_plugin_name, get_plugin_rules
 
 from flakeheaven.compat.base import ALIASES
 from flakeheaven.compat.base import REX_CODE
-from flakeheaven.logic._config import read_config
+# from flakeheaven.logic._config import read_config
 
 
 class ConfigFileFinder(f8_opts_config.ConfigFileFinder):
@@ -28,17 +28,6 @@ class ConfigFileFinder(f8_opts_config.ConfigFileFinder):
             "pyproject.toml",
             *self.project_filenames,
         )
-
-
-class TomlAndRawConfigParser(configparser.RawConfigParser):
-    def _read(self, fp, fpname):
-        path = Path(fpname)
-        if path.suffix != ".toml":
-            return super()._read(fp, fpname)
-
-        toml_config = {"flake8": read_config(path)}
-
-        self.read_dict(toml_config, fpname)
 
 
 def patch_config_module():
