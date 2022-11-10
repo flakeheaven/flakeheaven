@@ -1,9 +1,8 @@
-"""Flake8 wrapper to make it nice and configurable
+"""Flake8 wrapper for inheritable and complex toml configuration
 """
 
 # app
-from ._cli import entrypoint, flake8_entrypoint
 from ._version import __version__
 
 
-__all__ = ['entrypoint', 'flake8_entrypoint', '__version__']
+__all__ = ['__version__']

@@ -11,7 +11,7 @@ import pytest
 from flake8.utils import parse_unified_diff, stdin_get_value
 
 # project
-from flakeheaven._cli import main
+from flakeheaven.cli import main
 
 # app
 from .utils import chdir

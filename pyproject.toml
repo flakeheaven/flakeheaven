@@ -27,19 +27,21 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-flakeheaven = "flakeheaven:entrypoint"
-flake8heavened = "flakeheaven:flake8_entrypoint"
+flakeheaven = "flakeheaven.cli:entrypoint"
+fh = "flakeheaven.cli:entrypoint"
+flake8heavened = "flakeheaven.cli:flake8_entrypoint"
 
-[tool.poetry.plugins."flake8.extension"]
-pylint = "flakeheaven.plugins:PyLintChecker"
+# [tool.poetry.plugins."flake8.extension"]
+# pylint = "flakeheaven.plugins:PyLintChecker"
 
 [tool.poetry.plugins."flake8.report"]
-baseline = "flakeheaven.formatters:BaseLineFormatter"
-colored = "flakeheaven.formatters:ColoredFormatter"
-gitlab = "flakeheaven.formatters:GitlabFormatter"
-grouped = "flakeheaven.formatters:GroupedFormatter"
-json = "flakeheaven.formatters:JSONFormatter"
-stat = "flakeheaven.formatters:StatFormatter"
+flakeheaven-config = "flakeheaven.plugins.flakeheaven:Flakeheaven"
+# baseline = "flakeheaven.formatters:BaseLineFormatter"
+# colored = "flakeheaven.formatters:ColoredFormatter"
+# gitlab = "flakeheaven.formatters:GitlabFormatter"
+# grouped = "flakeheaven.formatters:GroupedFormatter"
+# json = "flakeheaven.formatters:JSONFormatter"
+# stat = "flakeheaven.formatters:StatFormatter"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -54,6 +56,7 @@ alabaster = {version = "*", optional = true}
 pygments-github-lexers = {version = "*", optional = true}
 sphinx = {version = "*", optional = true}
 myst-parser = {version = "^0.18.0", optional = true}
+typer = {extras = ["all"], version = "^0.7.0"}
 
 [tool.poetry.extras]
 docs = ["alabaster", "pygments-github-lexers", "myst-parser", "sphinx"]

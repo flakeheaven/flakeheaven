@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from flake8 import _EXTRA_VERBOSE, LOG as FLAKE8_LOG
 from flake8.main.application import Application
 from flake8.options.config import ConfigParser, get_local_plugins
-from flake8.options.manager import Option
+
 from flake8.plugins.manager import ReportFormatters
 from flake8.utils import parse_unified_diff
 

@@ -1,5 +1,5 @@
 # app
-from ._cli import entrypoint
+from flakeheaven.cli import entrypoint
 
 
 entrypoint()

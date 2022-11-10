@@ -3,7 +3,7 @@ from enum import IntEnum
 from types import MappingProxyType
 
 # app
-from ._version import __version__
+from flakeheaven._version import __version__
 
 
 NAME = 'flakeheaven'
