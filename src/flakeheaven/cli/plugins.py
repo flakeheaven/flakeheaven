@@ -42,7 +42,7 @@ def get_plugins(
 ):
     """Show all installed plugins, their codes prefix, and matched rules from config."""
 
-    plugins = sorted(app.get_installed(), key=lambda p: p['name'])
+    plugins = app.get_installed()
     if not plugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'
 

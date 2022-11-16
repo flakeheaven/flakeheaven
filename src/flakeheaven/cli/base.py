@@ -68,5 +68,5 @@ class Flake8Typer(Typer):
 
 class Flake8Context(Context):
     flake8: CompatModule
-    redir: AbstractContextManager
+    output_redir: AbstractContextManager
     flake8_app: FlakeHeavenApplicationInterface
