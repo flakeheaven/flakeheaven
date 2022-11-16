@@ -107,3 +107,36 @@ class Flakeheaven:
             if not isinstance(stringified, str):
                 continue
             setattr(options, opt, literal_eval(stringified))
+
+class PoetryLock:
+    name = 'PoetryLock'
+    version = "0.0.1"
+
+    @classmethod
+    def parse_options(cls, options) -> None:
+        options.filename.append("poetry.lock")
+
+    def __init__(
+        self,
+        filename: str,
+    ) -> None:
+        breakpoint();print()  # TODO remove this
+        self.filename = filename
+
+    def run(self):
+        for _ in range(3):
+            yield (
+                1,
+                _,
+                f'{_} (1_{_})',
+                type(self),
+            )
+        # breakpoint()
+        # print()  # TODO remove this
+        # for error in reporter.messages:
+        #     yield (
+        #         error.line,
+        #         error.column,
+        #         f'{error.msg_id} {error.msg or ""} ({error.symbol})',
+        #         type(self),
+        #     )
