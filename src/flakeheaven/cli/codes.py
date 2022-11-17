@@ -12,7 +12,6 @@ from flakeheaven.logic._extractors import extract
 
 
 from flakeheaven.cli.base import Flake8Context
-from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 
 REX_CODE = re.compile(r'([A-Z]+)([0-9]+)')
 REX_PLACEHOLDER = re.compile(r'(\{[a-z0-9]+\}|\%[a-z])')

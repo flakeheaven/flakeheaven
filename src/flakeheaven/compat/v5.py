@@ -1,11 +1,7 @@
 from __future__ import annotations
-import argparse
 from collections import defaultdict
-import configparser
-from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple
-from pathlib import Path
+from typing import Any, Iterator, Optional
 
-from flake8 import LOG
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config
 

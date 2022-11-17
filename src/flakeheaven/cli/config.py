@@ -1,7 +1,6 @@
 from contextlib import nullcontext
 from contextlib import redirect_stdout
 import json
-from rich.json import JSON
 from flake8 import LOG
 
 from flakeheaven.cli.base import Flake8Context

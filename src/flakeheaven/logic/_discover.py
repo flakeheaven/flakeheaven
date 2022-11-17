@@ -1,10 +1,8 @@
 # built-in
 import re
-from collections import defaultdict
-from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 # app
-from ._plugin import get_plugin_name, get_plugin_rules
+from ._plugin import get_plugin_rules
 
 
 REX_CODE = re.compile(r'^[A-Z]{1,9}[0-9]{0,5}$')

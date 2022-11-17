@@ -1,33 +1,20 @@
 from __future__ import annotations
 
-import argparse
 import abc
 import configparser
 import re
 from types import ModuleType
 from typing import (
-    Callable,
-    Dict,
     Iterator,
-    Tuple,
     Type,
-    Union,
-    Protocol,
-    Optional,
-    List,
     Any,
-    runtime_checkable,
 )
 
-from itertools import chain
 from pathlib import Path
 from importlib import import_module
-import typing
 
 from flake8 import __version_info__
 from flake8.main.application import Application
-from flake8.options.manager import Option
-from flake8.options.manager import OptionManager
 
 from flakeheaven.logic._config import _parse_config
 

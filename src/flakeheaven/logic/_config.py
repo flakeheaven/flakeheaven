@@ -3,7 +3,6 @@ import collections.abc
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict
-import logging
 # external
 import toml
 from flake8 import LOG as FLAKE8_LOG

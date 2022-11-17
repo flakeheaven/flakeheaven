@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 from collections import defaultdict
-from pathlib import Path
-import re
-import configparser
 from typing import Any, Iterator
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config

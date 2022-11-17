@@ -7,7 +7,7 @@ from rich.table import Table
 from typer import Exit
 from typer import Argument
 # app
-from .._constants import NAME, VERSION, ExitCode
+from .._constants import ExitCode
 from flakeheaven.logic._extractors import extract
 # from .._patched import FlakeHeavenApplication
 # from .._types import CommandResult

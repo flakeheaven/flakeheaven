@@ -1,5 +1,4 @@
 # built-in
-import json
 from ast import literal_eval
 
 from flake8.options.manager import OptionManager

@@ -7,16 +7,9 @@ from contextlib import nullcontext
 from contextlib import AbstractContextManager
 from contextlib import redirect_stdout
 import functools
-import sys
-from typing import List, NoReturn
 
-from typer import secho
-from typer import echo
 from typer import Context
-from typer import Option
 from typer import Typer
-from typer import Exit
-from typer.core import TyperCommand
 from flake8 import LOG
 # app
 from flakeheaven.compat.base import CompatModule

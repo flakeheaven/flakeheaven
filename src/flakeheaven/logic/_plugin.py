@@ -1,7 +1,7 @@
 # built-in
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Union
 
 # external
 from flake8.utils import fnmatch

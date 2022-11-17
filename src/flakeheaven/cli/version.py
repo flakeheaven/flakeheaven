@@ -1,8 +1,5 @@
-from typing import Optional
 
 from flake8 import __version__ as flake8_version
-from typer import secho
-from typer import Typer
 from typer import Option
 from typer import Exit
 from typer import Context

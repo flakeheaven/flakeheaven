@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typer import Exit
 
-from rich import print
 from typer import Exit
 
 # app
