@@ -9,100 +9,12 @@ from flake8 import LOG
 from flake8.main.application import Application
 from flake8.options import config as f8_opts_config
 
-# from flake8.options import aggregator
-
 from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 from flakeheaven.compat.base import REX_CODE
 from flakeheaven.compat.base import ALIASES
 from flakeheaven.compat.base import TomlAndRawConfigParser
 from flake8.options.manager import OptionManager
-# from flakeheaven.compat.base import get_toml_config
-# from flake8.options.manager import OptionManager
-# from flakeheaven.logic._config import read_config
-
-
-# def load_config(
-#     config: Optional[str],
-#     *a,
-#     isolated: bool = False,
-#     **kw,
-# ):
-#     breakpoint()
-#     print()  # TODO remove this
-#     cfg, cfg_dir = f8_opts_config._legacy_load_config(
-#         config, *a, isolated=isolated, **kw
-#     )
-#     incoming = get_toml_config(
-#         Path(config) if config is not None else config,
-#     )
-#     if "flake8" not in cfg:
-#         cfg.add_section("flake8")
-#     for k, v in incoming.items():
-#         cfg.set("flake8", k, v)
-
-#     return cfg, cfg_dir
-
-
-# def parse_config(
-#     option_manager: OptionManager,
-#     cfg: configparser.RawConfigParser,
-#     cfg_dir: str,
-# ) -> Dict[str, Any]:
-#     """Parse and normalize the typed configuration options."""
-#     if "flake8" not in cfg:
-#         return {}
-
-#     config_dict = {}
-
-#     for option_name in cfg["flake8"]:
-#         option = option_manager.config_options_dict.get(option_name)
-#         if option is None:
-#             LOG.debug('Option "%s" is not registered. Ignoring.', option_name)
-#             continue
-
-#         # Use the appropriate method to parse the config value
-#         value: Any
-#         try:
-#             if option.type is int or option.action == "count":
-#                 value = cfg.getint("flake8", option_name)
-#             elif option.action in {"store_true", "store_false"}:
-#                 value = cfg.getboolean("flake8", option_name)
-#             else:
-#                 value = cfg.get("flake8", option_name)
-#         except AttributeError:
-#             value = cfg.get("flake8", option_name)
-#         LOG.debug('Option "%s" returned value: %r', option_name, value)
-
-#         final_value = option.normalize(value, cfg_dir)
-#         assert option.config_name is not None
-#         config_dict[option.config_name] = final_value
-
-#     return config_dict
-
-
-# def patch_config_module():
-#     f8_opts_config._legacy_load_config = f8_opts_config.load_config
-#     f8_opts_config.load_config = load_config
-
-#     f8_opts_config._legacy_parse_config = f8_opts_config.parse_config
-#     f8_opts_config.parse_config = parse_config
-#     ...
-
-
-# def parse_args(
-#     self: OptionManager,
-#     args: Optional[List[str]] = None,
-#     values: Optional[argparse.Namespace] = None,
-# ) -> Tuple[argparse.Namespace, List[str]]:
-#     """Proxy to calling the OptionParser's parse_args method."""
-#     self.generate_epilog()
-#     self.update_version_string()
-#     if values:
-#         self.parser.set_defaults(**vars(values))
-#     parsed_args = self.parser.parse_args(args)
-#     # TODO: refactor callers to not need this
-#     return parsed_args, parsed_args.filenames
-
+from flakeheaven.patched._checkers import FlakeHeavenCheckersManager
 
 def load_config(
     config: Optional[str],
@@ -177,6 +89,18 @@ class FlakeHeavenApplication(FlakeHeavenApplicationInterface, Application):
     def get_option_manager_keys(option_manager: OptionManager) -> set:
         return (vars(option_manager.parse_args([]))).keys()
 
+
+    def get_exit_code(self):
+        return self.exit_code()
+
+    def make_file_checker_manager(self) -> None:
+        self.file_checker_manager = FlakeHeavenCheckersManager(
+            baseline=self.options.baseline,
+            style_guide=self.guide,
+            arguments=self.options.filenames,
+            checker_plugins=self.plugins.checkers,
+            relative=self.options.relative,
+        )
 
 __all__ = [
     "FlakeHeavenApplication",

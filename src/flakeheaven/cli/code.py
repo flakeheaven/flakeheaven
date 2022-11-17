@@ -21,7 +21,7 @@ def code_command(
     redir,
     code:str
 ):
-    """Show plugin name and message for given code."""
+    """Show plugins name and message matching given code."""
 
     plugins = app.get_installed()
     if not plugins:
@@ -76,5 +76,5 @@ def command(
     ctx: Flake8Context,
     code: str = Argument(..., help="Lint code to show plugins for from (example: 'T100')"),
 ):
-    """Show plugin name and message for given code."""
+    """Show plugins name and message matching given code."""
     return code_command(ctx.flake8_app, ctx.output_redir, code)

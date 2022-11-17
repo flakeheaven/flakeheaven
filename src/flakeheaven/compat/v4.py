@@ -14,6 +14,7 @@ from flake8.options.manager import OptionManager
 
 from flakeheaven.compat.base import FlakeHeavenApplicationInterface
 from flakeheaven.compat.base import TomlAndRawConfigParser
+from flakeheaven.patched._checkers import FlakeHeavenCheckersManager
 
 # app
 from flakeheaven.logic._plugin import get_plugin_name, get_plugin_rules
@@ -105,6 +106,20 @@ class FlakeHeavenApplication(FlakeHeavenApplicationInterface, Application):
     def get_option_manager_keys(option_manager: OptionManager) -> set:
         return vars(option_manager.parse_args([])[0]).keys()
 
+    def get_exit_code(self):
+        try:
+            self.exit()
+        except SystemExit as exc:
+            return exc.code
+
+    def make_file_checker_manager(self) -> None:
+        self.file_checker_manager = FlakeHeavenCheckersManager(
+            baseline=self.options.baseline,
+            style_guide=self.guide,
+            arguments=self.args,
+            checker_plugins=self.check_plugins,
+            relative=self.options.relative,
+        )
 
 __all__ = [
     "FlakeHeavenApplication",

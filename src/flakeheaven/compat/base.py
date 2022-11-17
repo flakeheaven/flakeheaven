@@ -112,6 +112,13 @@ class FlakeHeavenApplicationInterface(abc.ABC, Application):
     def get_option_manager_keys(option_manager) -> set:
         ...
 
+    @abc.abstractmethod
+    def make_file_checker_manager(self):
+        ...
+
+    @abc.abstractmethod
+    def get_exit_code(self):
+        ...
 
 class CompatModule(ModuleType):
     FlakeHeavenApplication: Type[FlakeHeavenApplicationInterface]
