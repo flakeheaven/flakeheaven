@@ -5,6 +5,7 @@ from typer import Exit
 from rich import print
 from rich.table import Table
 from typer import Exit
+from typer import Argument
 # app
 from .._constants import NAME, VERSION, ExitCode
 from flakeheaven.logic._extractors import extract
@@ -50,7 +51,7 @@ def code_command(
         raise Exit(code=ExitCode.NO_CODES)
 
     table = Table(
-        title=f"flake8 code: {code}",
+        title=f"flake8 code: '{code}'",
         expand=False
     )
 
@@ -73,7 +74,7 @@ def code_command(
 
 def command(
     ctx: Flake8Context,
-    code: str
+    code: str = Argument(..., help="Lint code to show plugins for from (example: 'T100')"),
 ):
     """Show plugin name and message for given code."""
     return code_command(ctx.flake8_app, ctx.output_redir, code)
