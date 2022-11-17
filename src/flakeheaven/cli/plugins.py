@@ -1,6 +1,7 @@
 """Show all installed plugins, their codes prefix, and matched rules from config."""
 
 from typing import Iterator, Tuple
+from typer import Exit
 from rich import print
 from flakeheaven._constants import ExitCode
 from flakeheaven.logic._plugin import get_plugin_rules
@@ -44,7 +45,8 @@ def get_plugins(
 
     plugins = app.get_installed()
     if not plugins:
-        return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'
+        print('[red]no plugins installed[/red]')
+        raise Exit(code=ExitCode.NO_PLUGINS_INSTALLED)
 
     table = Table(
         title="Flakeheaven plugins rules",
