@@ -40,7 +40,7 @@ FlakeHeaven works with Flake8 4.0.1 or greater. This fork will be [maintained by
 
 ## Compatibility
 
-FlakeHeaven supports all flake8 plugins, formatters, and configs. However, FlakeHeaven has it's own beautiful way to configure enabled plugins and codes. So, options like `--ignore` and `--select` unsupported. You can have flake8 and FlakeHeaven in one project if you want but enabled plugins should be explicitly specified.
+FlakeHeaven supports all flake8 plugins, formatters, and configs. However, FlakeHeaven has its own beautiful way to configure enabled plugins and codes. So, options like `--ignore` and `--select` are unsupported. You can have flake8 and FlakeHeaven in one project if you want but enabled plugins should be explicitly specified.
 
 ## Installation
 
@@ -112,10 +112,10 @@ Read [the documentation](https://flakeheaven.readthedocs.io/en/latest/) for more
 ## Contributing
 
 1. Add tests when possible (eg for features / fixes / refactor, etc. )
-2. add your contribution to the code / docs
-3. Ensure your code passes all (both oririnal and your own) tests.
-4. commit using [proper header](https://www.conventionalcommits.org/en/v1.0.0/)
-5. create a PR
+2. Add your contribution to the code / docs
+3. Ensure your code passes all (both original and your own) tests.
+4. Commit using [proper header](https://www.conventionalcommits.org/en/v1.0.0/)
+5. Create a PR
 
 Contributions are welcome! A few ideas where you can contribute:
 
