@@ -10,7 +10,7 @@ from flakeheaven.compat.base import REX_CODE
 from flakeheaven.compat.base import ALIASES
 from flakeheaven.compat.base import TomlAndRawConfigParser
 from flake8.options.manager import OptionManager
-from flakeheaven.patched._checkers import FlakeHeavenCheckersManager
+# from flakeheaven.patched._checkers import FlakeHeavenCheckersManager
 
 def load_config(
     config: Optional[str],
@@ -89,14 +89,14 @@ class FlakeHeavenApplication(FlakeHeavenApplicationInterface, Application):
     def get_exit_code(self):
         return self.exit_code()
 
-    def make_file_checker_manager(self) -> None:
-        self.file_checker_manager = FlakeHeavenCheckersManager(
-            baseline=self.options.baseline,
-            style_guide=self.guide,
-            arguments=self.options.filenames,
-            checker_plugins=self.plugins.checkers,
-            relative=self.options.relative,
-        )
+    # def make_file_checker_manager(self) -> None:
+    #     self.file_checker_manager = FlakeHeavenCheckersManager(
+    #         baseline=self.options.baseline,
+    #         style_guide=self.guide,
+    #         arguments=self.options.filenames,
+    #         checker_plugins=self.plugins.checkers,
+    #         relative=self.options.relative,
+    #     )
 
 __all__ = [
     "FlakeHeavenApplication",
