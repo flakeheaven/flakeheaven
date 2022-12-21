@@ -1,4 +1,5 @@
 # built-in
+import argparse
 import json
 import os
 from hashlib import md5
@@ -9,7 +10,7 @@ from typing import Optional
 # external
 from flake8.checker import FileChecker
 from flake8.options.manager import OptionManager
-
+from flake8.main.options import JobsArgument
 
 CACHE_PATH = Path(
     os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache/flakeheaven'),
@@ -30,6 +31,25 @@ def prepare_cache(path=CACHE_PATH):
         except FileNotFoundError:
             pass
 
+class _CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):  # set not hashable
+            return [
+                self.encode(value) for value in sorted(obj)
+            ]
+        if isinstance(obj, (argparse.Namespace, JobsArgument)):  # napespace->dict
+            return {
+                attr: self.encode(getattr(obj, attr))
+                for attr in sorted(vars(obj).keys())
+            }
+        return super().default(obj)
+
+def serialize(options:OptionManager):
+    return json.dumps(
+        options,
+        sort_keys=True,
+        cls=_CustomEncoder
+    )
 
 class Snapshot:
     _exists: Optional[bool] = None
@@ -44,9 +64,8 @@ class Snapshot:
     def create(cls, checker: FileChecker, options: OptionManager) -> 'Snapshot':
         hasher = md5()
 
-        # plugins config
-        plugins = json.dumps(options.plugins, sort_keys=True)
-        hasher.update(plugins.encode())
+        # full flakeheaven config
+        hasher.update(serialize(options).encode())
 
         # file path
         file_path = Path(checker.filename).resolve()
