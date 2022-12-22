@@ -3,6 +3,6 @@
     description: '`flakeheaven` is a `flake8` wrapper to make a nice, legacy-friendly, configurable command-line utility for enforcing style consistency across Python projects.'
     entry: flakeheaven lint
     language: python
-    types: [file, text]
-    files: \.(ipynb|md|py|rst|yaml|yml)$
+    types_or: [python, jupyter, markdown, rst, yaml]
     require_serial: true
+    minimum_pre_commit_version: 2.9.0
