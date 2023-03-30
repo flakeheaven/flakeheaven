@@ -20,6 +20,9 @@ def missed_command(argv) -> CommandResult:
     except NoPlugins:
         return ExitCode.NO_PLUGINS_INSTALLED, 'no plugins installed'
 
+    if not missing:
+        return ExitCode.OK, ''
+
     for pattern in missing:
         print(pattern)
 
