@@ -9,3 +9,4 @@ pip-wheel-metadata/
 .vscode/launch.json
 docs/_build/
 docs/apidoc/
+.idea/

@@ -126,3 +126,19 @@ def test_prepare_cache(monkeypatch, tmp_path: Path):
 
     prepare_cache(path=LiarPath(cache_path))
     prepare_cache(path=RemoverPath(cache_path))
+
+
+def test_default_cache_dir(monkeypatch, tmp_path: Path):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv('FLAKEHEAVEN_CACHE_TIMEOUT', '0')
+
+    expected_cache_path = tmp_path / '.flakeheaven_cache'
+
+    (tmp_path / 'pyproject.toml').write_text(PYPROJECT_TOML)
+    (tmp_path / 'testcode.py').write_text(PY_CODE)
+
+    sp.run(['flakeheaven', 'lint', 'testcode.py'])
+
+    p = Path(expected_cache_path).resolve()
+    assert p.exists()
+    assert len(list(p.glob('*.json'))) == 1

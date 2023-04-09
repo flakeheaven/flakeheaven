@@ -81,6 +81,17 @@ format='colored'
 max_line_length=90
 ```
 
+## Cache settings
+
+FlakeHeaven caches results. Cache invalidates after 24 hours or if the configuration was changed.
+Default cache directory is `.flakeheaven_cache` in your working directory.
+
+It can be changed by environment variable `FLAKEHEAVEN_CACHE`.
+Also, you can change threshold by variable `FLAKEHEAVEN_CACHE_TIMEOUT`.
+```bash
+FLAKEHEAVEN_CACHE=/tmp/mydir FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint
+```
+
 ## Additional settings
 
 FlakeHeaven provides a few additional options that aren't supported by the original flake8. They can be specified as everything else, in config or as CLI flags.

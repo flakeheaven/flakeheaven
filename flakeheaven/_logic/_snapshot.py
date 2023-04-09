@@ -1,6 +1,8 @@
 # built-in
+import contextlib
 import json
 import os
+from datetime import timedelta
 from hashlib import md5
 from pathlib import Path
 from time import time
@@ -12,23 +14,23 @@ from flake8.options.manager import OptionManager
 
 
 CACHE_PATH = Path(
-    os.environ.get('FLAKEHEAVEN_CACHE', Path.home() / '.cache/flakeheaven'),
+    os.environ.get('FLAKEHEAVEN_CACHE', Path().resolve() / '.flakeheaven_cache'),
 )
 
-THRESHOLD = int(os.getenv('FLAKEHEAVEN_CACHE_TIMEOUT', 3600 * 24))  # default is 1 day
+THRESHOLD = int(os.getenv('FLAKEHEAVEN_CACHE_TIMEOUT', timedelta(days=1).total_seconds()))
 
 
 def prepare_cache(path=CACHE_PATH):
     if not path.exists():
         path.mkdir(parents=True, exist_ok=True)
         return
+
+    _time = time()
     for fpath in path.iterdir():
-        try:
-            if time() - fpath.stat().st_atime <= THRESHOLD:
+        with contextlib.suppress(FileNotFoundError):
+            if _time - fpath.stat().st_atime <= THRESHOLD:
                 continue
             fpath.unlink()
-        except FileNotFoundError:
-            pass
 
 
 class Snapshot:
